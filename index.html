@@ -4,311 +4,250 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Leonardo Masi Portfolio</title>
-<meta name="description" content="Leonardo Masi, Robotics and Automation Engineering, Master's Student Portfolio.">
+<meta name="description" content="Leonardo Masi, Master's Student in Robotics, Automation and Electrical Engineering. Portfolio of projects.">
 <style>
-  :root { --band: #747474; color-scheme: light; }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { margin: 0; background: #ffffff; }
-  .hn { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
-  .hv { font-family: Helvetica, "Helvetica Neue", Arial, sans-serif; }
-  a { color: inherit; text-decoration: none; }
-  a:focus-visible { outline: 2px solid var(--band); outline-offset: 2px; }
+:root {
+  /* From the Keynote portfolio: white page, Helvetica / Helvetica Neue, grey #747474 text with darker key words,
+     black bold titles, thin grey rule under titles, grey band between sections. */
+  --paper: #ffffff;
+  --ink: #000000;
+  --text: #747474;
+  --key: #4a4a4a;
+  --rule: #9a9a9a;
+  --band: #747474;
+  --title: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --body: Helvetica, "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--paper); color: var(--text); font-family: var(--body); font-weight: 300; font-size: 18px; line-height: 1.45; -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--band); outline-offset: 3px; }
+strong { font-weight: 400; color: var(--key); }
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+@media (max-width: 700px) { .wrap { padding: 0 20px; } }
+.band { height: 14px; background: var(--band); }
 
-  /* desktop and tablet: each slide is a 16:9 canvas, every element at its Keynote position */
-  .slide { max-width: 1600px; margin: 0 auto; }
-  .canvas { position: relative; aspect-ratio: 16 / 9; container-type: inline-size; overflow: hidden; background: #ffffff; }
-  .canvas .p { display: contents; }
-  .canvas .s { position: absolute; white-space: pre; line-height: 1; font-size: var(--fs); }
-  .canvas .gap { display: none; }
-  .canvas .pic { position: absolute; height: auto; display: block; }
-  .canvas .rule { position: absolute; height: 0; }
-  .band { position: absolute; left: 0; right: 0; bottom: 0; height: 2.32%; background: var(--band); }
-  .code { margin: 0; padding: 10px 2.5% 14px; text-align: right; font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif; }
-  .code a { color: #555555; text-decoration: underline; text-underline-offset: 3px; }
+/* top bar */
+.top { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.96); border-bottom: 1px solid #dddddd; }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 56px; }
+.top .name { font-family: var(--title); font-weight: 300; font-size: 18px; letter-spacing: .03em; color: var(--ink); text-decoration: none; white-space: nowrap; }
+.top nav { display: flex; gap: 22px; overflow-x: auto; scrollbar-width: none; }
+.top nav a { font-family: var(--title); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--text); text-decoration: none; white-space: nowrap; padding: 4px 0; }
+.top nav a:hover { color: var(--ink); }
+@media (max-width: 760px) { .top .name { display: none; } .top nav { gap: 18px; } }
 
-  /* phones: same fonts and colours, elements in reading order */
-  @media (max-width: 760px) {
-    .canvas { aspect-ratio: auto; container-type: normal; overflow: visible; padding: 36px 20px 28px; }
-    .canvas .p { display: block; margin: 0 0 14px; }
-    .canvas .s, .canvas .gap { position: static; display: inline; white-space: normal; line-height: 1.4; font-size: var(--fm); }
-    .canvas .p.title { margin-bottom: 8px; }
-    .canvas .p.title .s { line-height: 1.15; }
-    .canvas .p.head { margin-top: 22px; }
-    .canvas .p.sub { padding-left: 18px; text-indent: -12px; }
-    .canvas .p.pnum { display: none; }
-    .canvas .rule { position: static; display: block; width: 70% !important; margin: 10px 0 14px; border-top-width: 1px !important; }
-    .canvas .rule.under { display: none; }
-    .canvas .p a .s { text-decoration: underline; }
-    .canvas .pic { position: static; display: block; width: auto !important; max-width: min(100%, var(--mw)); margin: 18px auto 8px; }
-    .canvas .pic.icon { display: inline-block; vertical-align: middle; margin: 6px 10px 6px 0; max-width: 28px; }
-    .canvas .pic.icon + .p { display: inline; }
-    .canvas .pic.icon + .p::after { content: ""; display: block; margin-bottom: 8px; }
-    .band { position: static; height: 10px; margin: 24px -20px -28px; }
-  }
+/* section heading like the slide titles */
+.slide-head h2, .slide-head h3 { margin: 0; font-family: var(--title); font-weight: 700; color: var(--ink); line-height: 1.15; text-wrap: balance; }
+.slide-head h2 { font-size: 40px; }
+.slide-head h3 { font-size: 30px; }
+.slide-head hr { border: 0; border-top: 1px solid var(--rule); width: 45%; margin: 14px 0 10px; }
+.kicker { margin: 0; font-style: italic; font-weight: 300; color: var(--text); font-size: 18px; }
+@media (max-width: 700px) { .slide-head h2 { font-size: 30px; } .slide-head h3 { font-size: 24px; } .slide-head hr { width: 70%; } }
+
+section.sec { padding: 72px 0 64px; }
+
+/* hero = cover slide + About Me */
+.hero { padding: 64px 0 56px; }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 56px; align-items: center; }
+.hero h1 { margin: 0; font-family: var(--title); font-weight: 300; font-size: 52px; letter-spacing: .01em; color: var(--ink); }
+.hero .cover-rule { border: 0; border-top: 1px solid var(--rule); width: 100%; margin: 18px 0 14px; }
+.hero .cover-sub { margin: 0 0 36px; font-family: var(--title); text-transform: uppercase; font-size: 17px; color: var(--text); }
+.hero .about p { margin: 0 0 18px; max-width: 62ch; font-size: 19px; }
+.hero .photo { width: 100%; height: auto; }
+.contacts { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 12px; }
+.contacts li { display: flex; align-items: center; gap: 14px; }
+.contacts img { width: 26px; height: auto; }
+.contacts a { color: var(--text); font-weight: 400; text-underline-offset: 3px; }
+.contacts .gh { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; background: #1f1f1f; color: #fff; font-size: 0; position: relative; }
+.contacts .gh::after { content: "GH"; font: 700 9px var(--title); letter-spacing: .02em; }
+@media (max-width: 860px) { .hero-grid { grid-template-columns: 1fr; gap: 24px; } .hero .photo { order: -1; max-width: 220px; } .hero h1 { font-size: 36px; } .hero .cover-sub { font-size: 14px; } }
+
+/* text columns like the slides */
+.head { position: relative; margin: 26px 0 10px; padding-left: 20px; font-family: var(--title); font-weight: 700; font-size: 22px; color: var(--text); }
+.head::before { content: "\2022"; position: absolute; left: 0; top: 2px; font-size: 15px; }
+.text p { margin: 0 0 14px; max-width: 62ch; }
+.text ul { margin: 0 0 14px; padding-left: 48px; }
+.text li { margin: 0 0 10px; max-width: 60ch; }
+.text li::marker { font-size: 14px; }
+.note { font-style: italic; }
+.links { display: flex; flex-wrap: wrap; gap: 8px 24px; margin: 22px 0 0; }
+.links a { color: var(--key); font-weight: 400; text-underline-offset: 3px; }
+.logos { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 22px; margin: 28px 0 0; }
+.logos img { height: 34px; width: auto; }
+
+/* current work */
+.label { margin: 0 0 14px; font-family: var(--title); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--text); }
+.current .cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; margin-top: 10px; }
+@media (max-width: 860px) { .current .cols { grid-template-columns: 1fr; gap: 0; } }
+
+/* projects */
+.filters { display: flex; flex-wrap: wrap; gap: 8px 26px; margin: 28px 0 8px; }
+.filters button { all: unset; cursor: pointer; font-family: var(--title); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--text); padding: 4px 0; border-bottom: 2px solid transparent; }
+.filters button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+.filters button:focus-visible { outline: 2px solid var(--band); outline-offset: 3px; }
+.area { margin-top: 40px; }
+.area[hidden] { display: none; }
+.area-title { margin: 0 0 22px; font-family: var(--title); font-weight: 400; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; color: var(--text); border-bottom: 1px solid #dddddd; padding-bottom: 8px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 40px 36px; }
+@media (max-width: 420px) { .grid { grid-template-columns: 1fr; } }
+.card { display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: inherit; }
+.card-img { display: block; aspect-ratio: 4 / 3; background: #ffffff; margin-bottom: 10px; }
+.card-img img { width: 100%; height: 100%; object-fit: contain; transition: transform .25s ease; }
+.card:hover .card-img img { transform: scale(1.03); }
+.card-title { font-family: var(--title); font-weight: 700; font-size: 22px; line-height: 1.2; color: var(--ink); }
+.card .kicker { font-size: 16px; }
+.card-sum { font-size: 16px; }
+.more { margin-top: 4px; font-weight: 400; color: var(--key); text-decoration: underline; text-underline-offset: 3px; font-size: 16px; }
+
+/* competitions and DIY */
+.block { margin-top: 48px; }
+.block .lead, .lead { margin: 16px 0 0; max-width: 72ch; }
+.row { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; margin-top: 26px; align-items: start; }
+figure { margin: 0; }
+figcaption { margin-top: 10px; text-align: center; font-weight: 400; font-size: 15px; color: var(--text); }
+
+/* skills */
+.skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 0 48px; margin-top: 8px; }
+.skills p { margin: 0 0 6px; padding-left: 20px; }
+
+/* project page (opens over the site) */
+dialog.page { width: 100%; max-width: 100%; height: 100%; max-height: 100%; margin: 0; padding: 0; border: 0; background: var(--paper); color: var(--text); }
+dialog.page::backdrop { background: rgba(0,0,0,.4); }
+.page-bar { position: sticky; top: 0; z-index: 2; background: rgba(255,255,255,.97); border-bottom: 1px solid #dddddd; }
+.page-bar .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; }
+.page-bar .crumb { font-family: var(--title); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--text); }
+.page-bar button { all: unset; cursor: pointer; font-family: var(--title); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); padding: 6px 0; }
+.page-bar button:focus-visible { outline: 2px solid var(--band); outline-offset: 3px; }
+.page-body { padding: 56px 0 40px; outline: none; }
+.page-body .cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; margin-top: 10px; align-items: start; }
+.gallery { display: grid; gap: 30px; padding-top: 26px; }
+.gallery img { margin: 0 auto; max-height: 560px; width: auto; }
+@media (max-width: 860px) { .page-body .cols { grid-template-columns: 1fr; gap: 0; } .page-body { padding-top: 32px; } }
+.pn { display: flex; justify-content: space-between; gap: 24px; margin-top: 56px; padding-top: 18px; border-top: 1px solid #dddddd; }
+.pn a { color: var(--key); font-weight: 400; text-decoration: none; font-size: 16px; }
+.pn a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+footer { padding: 22px 0 28px; font-size: 14px; }
 </style>
 </head>
 <body>
-<main>
-<section class="slide" id="top">
-  <div class="canvas">
-      <div class="p title"><span class="s hn" style="left:4.5833%;top:39.9540%;--fs:3.0208cqw;--fm:32.5px;font-weight:300;color:#000000">LEONARDO MASI</span></div>
-      <div class="p"><span class="s hn" style="left:4.5833%;top:52.0374%;--fs:1.8750cqw;--fm:20.2px;font-weight:400;color:#747474">ROBOTICS AND AUTOMATION ENGINEERING | MASTER’S STUDENT PORTFOLIO</span></div>
-      <div class="rule" style="left:4.3750%;top:48.6574%;width:91.2593%;border-top:0.0521cqw solid #9a9a9a"></div>
-      <div class="band"></div>
-  </div>
-</section>
-<section class="slide" id="about">
-  <div class="canvas">
-      <div class="p title"><span class="s hn" style="left:4.5833%;top:11.5992%;--fs:3.0208cqw;--fm:32.5px;font-weight:700;color:#000000">About Me</span></div>
-      <div class="rule" style="left:4.3750%;top:20.1389%;width:91.2500%;border-top:0.0521cqw solid #9a9a9a"></div>
-      <div class="p"><span class="s hn" style="left:4.5833%;top:23.4263%;--fs:1.8750cqw;--fm:20.2px;font-weight:400;color:#747474">Hi! </span></div>
-      <div class="p"><span class="s hn" style="left:4.5833%;top:31.2967%;--fs:1.8750cqw;--fm:20.2px;font-weight:400;color:#747474">My name is Leonardo Masi. I am a Master’s </span><span class="gap"> </span><span class="s hn" style="left:4.5833%;top:35.2782%;--fs:1.8750cqw;--fm:20.2px;font-weight:400;color:#747474">Student in Robotics, Automation and Electrical </span><span class="gap"> </span><span class="s hn" style="left:4.5833%;top:39.2596%;--fs:1.8750cqw;--fm:20.2px;font-weight:400;color:#747474">Engineering at the University of Florence, with a </span><span class="gap"> </span><span class="s hn" style="left:4.5833%;top:43.2411%;--fs:1.8750cqw;--fm:20.2px;font-weight:400;color:#747474">background in in Biomedical Engineering.  </span></div>
-      <div class="p"><span class="s hn" style="left:4.5833%;top:51.1115%;--fs:1.8750cqw;--fm:20.2px;font-weight:400;color:#747474">Thank you for taking a few minutes to review </span><span class="gap"> </span><span class="s hn" style="left:4.5833%;top:55.0930%;--fs:1.8750cqw;--fm:20.2px;font-weight:400;color:#747474">my portfolio and know more about my work. </span><span class="gap"> </span><span class="s hn" style="left:4.5833%;top:59.0745%;--fs:1.8750cqw;--fm:20.2px;font-weight:400;color:#747474">This document showcases the most significant </span><span class="gap"> </span><span class="s hn" style="left:4.5833%;top:63.0559%;--fs:1.8750cqw;--fm:20.2px;font-weight:400;color:#747474">projects I have completed recently. </span></div>
-      <img class="pic icon" src="img/s02-2.webp" alt="" loading="lazy" style="left:4.3750%;top:82.2222%;width:3.0208%;--mw:52px">
-      <div class="p"><a href="https://www.linkedin.com/in/leonardo-masi-b09b28219/" target="_blank" rel="noopener"><span class="s hn" style="left:8.4507%;top:83.5773%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">Leonardo Masi</span></a></div>
-      <div class="rule under" style="left:8.4507%;top:86.2023%;width:10.3906%;border-top:0.0781cqw solid #747474"></div>
-      <img class="pic icon" src="img/s02-3.webp" alt="" loading="lazy" style="left:4.2708%;top:88.5185%;width:3.2292%;--mw:56px">
-      <div class="p"><a href="mailto:leomasi1705@gmail.com"><span class="s hn" style="left:8.4507%;top:89.4709%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">leomasi1705@gmail.com</span></a></div>
-      <div class="rule under" style="left:8.4507%;top:92.0959%;width:17.3734%;border-top:0.0781cqw solid #747474"></div>
-      <img class="pic" src="img/s02-1.webp" alt="" loading="lazy" style="left:61.3542%;top:27.2222%;width:28.6458%;--mw:495px">
-      <div class="p pnum"><span class="s hn" style="left:97.5851%;top:94.6795%;--fs:0.9375cqw;--fm:10.1px;font-weight:400;color:#000000">2</span></div>
-      <div class="band"></div>
-  </div>
-</section>
-<section class="slide" id="perseverance-rover">
-  <div class="canvas">
-      <div class="p title"><span class="s hn" style="left:4.5833%;top:11.5992%;--fs:3.0208cqw;--fm:32.5px;font-weight:700;color:#000000">Rover Perseverance | Mission Simulator </span></div>
-      <div class="rule" style="left:4.3750%;top:20.1389%;width:39.0117%;border-top:0.0521cqw solid #9a9a9a"></div>
-      <div class="p head"><span class="s hn" style="left:4.5833%;top:23.8814%;--fs:1.3281cqw;--fm:14.3px;font-weight:700;color:#747474">•</span><span class="s hn" style="left:5.0482%;top:23.1966%;--fs:1.7708cqw;--fm:19.0px;font-weight:700;color:#747474"> </span><span class="s hn" style="left:6.4583%;top:23.4311%;--fs:1.7708cqw;--fm:19.0px;font-weight:700;color:#747474">Overview </span></div>
-      <div class="p"><span class="s hv" style="left:4.5833%;top:29.0741%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">I developed a mechatronic prototype to simulate the </span><span class="gap"> </span><span class="s hv" style="left:4.5833%;top:32.4074%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">autonomous operations of the Perseverance rover on Mars. The </span><span class="gap"> </span><span class="s hv" style="left:4.5833%;top:35.7407%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">project focused on autonomous navigation, environmental </span><span class="gap"> </span><span class="s hv" style="left:4.5833%;top:39.0741%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">monitoring, and sample collection, integrating two different </span><span class="gap"> </span><span class="s hv" style="left:4.5833%;top:42.4075%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">hardware architectures (</span><span class="s hv" style="left:21.5771%;top:42.4075%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">LEGO Mindstorms and Arduino</span><span class="s hv" style="left:43.2026%;top:42.4075%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">) to </span><span class="gap"> </span><span class="s hv" style="left:4.5833%;top:45.7408%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">expand the system&#x27;s capabilities. </span></div>
-      <div class="p head"><span class="s hn" style="left:4.5833%;top:53.4184%;--fs:1.3281cqw;--fm:14.3px;font-weight:700;color:#747474">•</span><span class="s hn" style="left:5.0482%;top:52.7337%;--fs:1.7708cqw;--fm:19.0px;font-weight:700;color:#747474"> </span><span class="s hn" style="left:6.4583%;top:52.9682%;--fs:1.7708cqw;--fm:19.0px;font-weight:700;color:#747474">Technical Implementation  </span></div>
-      <div class="p sub"><span class="s hv" style="left:7.1875%;top:58.9121%;--fs:1.1719cqw;--fm:12.6px;font-weight:300;color:#747474">•</span><span class="s hv" style="left:7.7734%;top:58.3079%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474"> </span><span class="s hv" style="left:8.7500%;top:58.6112%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">Line Follower</span><span class="s hv" style="left:18.0426%;top:58.6112%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474"> algorithm for path tracking; </span></div>
-      <div class="p sub"><span class="s hv" style="left:7.1875%;top:64.0973%;--fs:1.1719cqw;--fm:12.6px;font-weight:300;color:#747474">•</span><span class="s hv" style="left:7.7734%;top:63.4932%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474"> </span><span class="s hv" style="left:8.7500%;top:63.7964%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">Color-based </span><span class="s hv" style="left:17.7797%;top:63.7964%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">vision system </span><span class="s hv" style="left:27.5911%;top:63.7964%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">to identify specific waypoints; </span></div>
-      <div class="p sub"><span class="s hv" style="left:7.1875%;top:69.2826%;--fs:1.1719cqw;--fm:12.6px;font-weight:300;color:#747474">•</span><span class="s hv" style="left:7.7734%;top:68.6784%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474"> </span><span class="s hv" style="left:8.7500%;top:68.9817%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">Designed and programmed a </span><span class="s hv" style="left:29.9063%;top:68.9817%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">gripper mechanism;</span><span class="s hv" style="left:43.6270%;top:68.9817%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474"> </span></div>
-      <div class="p sub"><span class="s hv" style="left:7.1875%;top:74.4678%;--fs:1.1719cqw;--fm:12.6px;font-weight:300;color:#747474">•</span><span class="s hv" style="left:7.7734%;top:73.8636%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474"> </span><span class="s hv" style="left:8.7500%;top:74.1669%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">Interfaced </span><span class="s hv" style="left:16.3344%;top:74.1669%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">I2C</span><span class="s hv" style="left:18.7659%;top:74.1669%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474"> communication with </span><span class="s hv" style="left:33.5284%;top:74.1669%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">Arduino board;</span></div>
-      <div class="p sub"><span class="s hv" style="left:7.1875%;top:79.6530%;--fs:1.1719cqw;--fm:12.6px;font-weight:300;color:#747474">•</span><span class="s hv" style="left:7.7734%;top:79.0489%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474"> </span><span class="s hv" style="left:8.7500%;top:79.3521%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">Custom 3D-</span><span class="s hv" style="left:17.0851%;top:79.3521%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">printed hardware components;</span></div>
-      <img class="pic" src="img/s03-1.webp" alt="" loading="lazy" style="left:48.5417%;top:22.2222%;width:44.8958%;--mw:776px">
-      <div class="p pnum"><span class="s hn" style="left:97.4815%;top:94.4953%;--fs:0.9375cqw;--fm:10.1px;font-weight:400;color:#000000">3</span></div>
-      <div class="p"><span class="s hv" style="left:53.0692%;top:94.3986%;--fs:1.4062cqw;--fm:15.1px;font-weight:400;color:#747474">Perseverance Architecture</span></div>
-      <div class="band"></div>
-  </div>
-  <p class="code"><a href="https://github.com/masileonardo/perseverance-rover-simulator" target="_blank" rel="noopener">Code on GitHub</a></p>
-</section>
-<section class="slide" id="perseverance-rover-2">
-  <div class="canvas">
-      <div class="p title"><span class="s hn" style="left:4.5833%;top:11.5992%;--fs:3.0208cqw;--fm:32.5px;font-weight:700;color:#000000">Rover Perseverance | Mission Simulator </span></div>
-      <div class="rule" style="left:4.3750%;top:20.1389%;width:39.0117%;border-top:0.0521cqw solid #9a9a9a"></div>
-      <img class="pic" src="img/s04-6.webp" alt="" loading="lazy" style="left:5.1042%;top:29.4444%;width:34.2708%;--mw:592px">
-      <div class="p"><span class="s hn" style="left:9.9736%;top:71.2821%;--fs:1.4062cqw;--fm:15.1px;font-weight:400;color:#747474">Line follower path with color waypoints</span></div>
-      <img class="pic icon" src="img/s04-7.webp" alt="" loading="lazy" style="left:8.6458%;top:81.8519%;width:3.8542%;--mw:67px">
-      <div class="p"><a href="https://youtu.be/JlRWyniSSKs" target="_blank" rel="noopener"><span class="s hv" style="left:12.5053%;top:83.6153%;--fs:1.3021cqw;--fm:14.0px;font-weight:300;color:#747474">https://youtu.be/JlRWyniSSKs</span></a></div>
-      <img class="pic" src="img/s04-1.webp" alt="" loading="lazy" style="left:82.3958%;top:2.2222%;width:7.8125%;--mw:135px">
-      <img class="pic" src="img/s04-2.webp" alt="" loading="lazy" style="left:73.2292%;top:3.1481%;width:8.8542%;--mw:153px">
-      <img class="pic" src="img/s04-3.webp" alt="" loading="lazy" style="left:90.3125%;top:3.8889%;width:9.3750%;--mw:162px">
-      <img class="pic icon" src="img/s04-4.webp" alt="" loading="lazy" style="left:94.5833%;top:19.2593%;width:0.7292%;--mw:13px">
-      <img class="pic" src="img/s04-5.webp" alt="" loading="lazy" style="left:48.2292%;top:22.9630%;width:45.4167%;--mw:785px">
-      <div class="p pnum"><span class="s hn" style="left:97.4815%;top:94.4953%;--fs:0.9375cqw;--fm:10.1px;font-weight:400;color:#000000">4</span></div>
-      <div class="p"><span class="s hv" style="left:65.1754%;top:94.2645%;--fs:1.4062cqw;--fm:15.1px;font-weight:400;color:#747474">Robot explosion</span></div>
-      <div class="band"></div>
-  </div>
-</section>
-<section class="slide" id="grasp-force-sensor">
-  <div class="canvas">
-      <div class="p title"><span class="s hn" style="left:4.5833%;top:6.9370%;--fs:2.9906cqw;--fm:32.2px;font-weight:700;color:#000000">Development of a sensor system for measuring </span><span class="gap"> </span><span class="s hn" style="left:4.5833%;top:13.4184%;--fs:2.9906cqw;--fm:32.2px;font-weight:700;color:#000000">force distribution when grasping objects</span></div>
-      <div class="rule" style="left:4.3750%;top:20.1389%;width:39.0117%;border-top:0.0521cqw solid #9a9a9a"></div>
-      <div class="p"><span class="s hv" style="left:4.6641%;top:21.5549%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474;font-style:italic">Bachelor’s Thesis Project</span></div>
-      <div class="p head"><span class="s hn" style="left:5.1545%;top:28.2677%;--fs:1.3148cqw;--fm:14.1px;font-weight:700;color:#747474">•</span><span class="s hn" style="left:5.6147%;top:27.5898%;--fs:1.7531cqw;--fm:18.8px;font-weight:700;color:#747474"> </span><span class="s hn" style="left:6.9077%;top:27.8724%;--fs:1.7531cqw;--fm:18.8px;font-weight:700;color:#747474">Overview </span></div>
-      <div class="p"><span class="s hv" style="left:5.1545%;top:33.4922%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">Developed a sensorized object to measure and map force </span><span class="gap"> </span><span class="s hv" style="left:5.1545%;top:36.8256%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">distribution during grasping tasks. The project was part of a </span><span class="gap"> </span><span class="s hv" style="left:5.1545%;top:40.1589%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">research initiative to evaluate the performance of a hand </span><span class="gap"> </span><span class="s hv" style="left:5.1545%;top:43.4922%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">exoskeleton developed by the university laboratory. By identifying </span><span class="gap"> </span><span class="s hv" style="left:5.1545%;top:46.8256%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">high and low-pressure points during a &quot;grasp,&quot; the system provided </span><span class="gap"> </span><span class="s hv" style="left:5.1545%;top:50.1589%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">essential data to optimize the exoskeleton’s mechanical design and </span><span class="gap"> </span><span class="s hv" style="left:5.1545%;top:53.4922%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">control algorithms for more natural and effective human-robot </span><span class="gap"> </span><span class="s hv" style="left:5.1545%;top:56.8256%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">interaction. </span></div>
-      <div class="p head"><span class="s hn" style="left:5.1545%;top:64.4139%;--fs:1.3148cqw;--fm:14.1px;font-weight:700;color:#747474">•</span><span class="s hn" style="left:5.6147%;top:63.7361%;--fs:1.7531cqw;--fm:18.8px;font-weight:700;color:#747474"> </span><span class="s hn" style="left:7.0108%;top:64.0187%;--fs:1.7531cqw;--fm:18.8px;font-weight:700;color:#747474">Technical Implementation  </span></div>
-      <div class="p sub"><span class="s hv" style="left:7.7587%;top:69.9318%;--fs:1.1602cqw;--fm:12.5px;font-weight:300;color:#747474">•</span><span class="s hv" style="left:8.3388%;top:69.3337%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474"> </span><span class="s hv" style="left:9.3056%;top:69.6386%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">Designed the test object using </span><span class="s hv" style="left:30.8845%;top:69.6386%;--fs:1.5469cqw;--fm:16.6px;font-weight:400;color:#747474">SolidWorks</span><span class="s hv" style="left:38.6793%;top:69.6386%;--fs:1.5469cqw;--fm:16.6px;font-weight:700;color:#747474"> </span><span class="s hv" style="left:39.1090%;top:69.6386%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">and fabricated </span><span class="gap"> </span><span class="s hv" style="left:9.3056%;top:72.9720%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">using </span><span class="s hv" style="left:13.5177%;top:72.9720%;--fs:1.5469cqw;--fm:16.6px;font-weight:400;color:#747474">3D printing</span><span class="s hv" style="left:20.9983%;top:72.9720%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474"> technology; </span></div>
-      <div class="p sub"><span class="s hv" style="left:7.7587%;top:78.4319%;--fs:1.1602cqw;--fm:12.5px;font-weight:300;color:#747474">•</span><span class="s hv" style="left:8.3388%;top:77.8338%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474"> </span><span class="s hv" style="left:9.3056%;top:78.1387%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">Developed the data acquisition system using </span><span class="s hv" style="left:40.8556%;top:78.1387%;--fs:1.5469cqw;--fm:16.6px;font-weight:400;color:#747474">Arduino;</span></div>
-      <div class="p sub"><span class="s hv" style="left:7.7587%;top:83.5986%;--fs:1.1602cqw;--fm:12.5px;font-weight:300;color:#747474">•</span><span class="s hv" style="left:8.3388%;top:83.0005%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474"> </span><span class="s hv" style="left:9.3056%;top:83.3054%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">Conducted experimental trials wearing the </span><span class="s hv" style="left:39.0489%;top:83.3054%;--fs:1.5469cqw;--fm:16.6px;font-weight:400;color:#747474">lab’s hand </span><span class="gap"> </span><span class="s hv" style="left:9.3056%;top:86.6387%;--fs:1.5469cqw;--fm:16.6px;font-weight:400;color:#747474">exoskeleton;</span></div>
-      <div class="p sub"><span class="s hv" style="left:7.7587%;top:92.0987%;--fs:1.1602cqw;--fm:12.5px;font-weight:300;color:#747474">•</span><span class="s hv" style="left:8.3388%;top:91.5006%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474"> </span><span class="s hv" style="left:9.3056%;top:91.8054%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">Performed precision </span><span class="s hv" style="left:23.7735%;top:91.8054%;--fs:1.5469cqw;--fm:16.6px;font-weight:400;color:#747474">soldering</span><span class="s hv" style="left:30.0509%;top:91.8054%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474"> and wiring of the sensor matrix;</span></div>
-      <img class="pic" src="img/s05-1.webp" alt="" loading="lazy" style="left:56.7708%;top:24.0741%;width:32.1875%;--mw:556px">
-      <div class="p"><span class="s hn" style="left:65.7671%;top:51.9082%;--fs:1.4062cqw;--fm:15.1px;font-weight:400;color:#747474">Sensor object developed</span></div>
-      <img class="pic" src="img/s05-2.webp" alt="" loading="lazy" style="left:77.5000%;top:60.1852%;width:22.5000%;--mw:389px">
-      <div class="p"><span class="s hn" style="left:73.4822%;top:94.8271%;--fs:1.4062cqw;--fm:15.1px;font-weight:400;color:#747474">Hand exoskeleton </span></div>
-      <div class="band"></div>
-  </div>
-  <p class="code"><a href="https://github.com/masileonardo/grasp-force-sensor" target="_blank" rel="noopener">Code on GitHub</a></p>
-</section>
-<section class="slide" id="franka-manipulation">
-  <div class="canvas">
-      <div class="p title"><span class="s hn" style="left:4.6869%;top:13.7242%;--fs:3.0208cqw;--fm:32.5px;font-weight:700;color:#000000">Robotics Manipulation Challenge</span></div>
-      <div class="rule" style="left:4.3750%;top:20.1389%;width:39.0117%;border-top:0.0521cqw solid #9a9a9a"></div>
-      <div class="p"><span class="s hv" style="left:4.6641%;top:21.5549%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474;font-style:italic">Master’s Exam</span></div>
-      <div class="p head"><span class="s hn" style="left:5.1545%;top:28.2875%;--fs:1.3281cqw;--fm:14.3px;font-weight:700;color:#747474">•</span><span class="s hn" style="left:5.6194%;top:27.6028%;--fs:1.7708cqw;--fm:19.0px;font-weight:700;color:#747474"> </span><span class="s hn" style="left:6.9254%;top:27.8372%;--fs:1.7708cqw;--fm:19.0px;font-weight:700;color:#747474">Overview </span></div>
-      <div class="p"><span class="s hv" style="left:5.1545%;top:33.4802%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">Developed an automated robotic manipulation pipeline using a </span><span class="gap"> </span><span class="s hv" style="left:5.1545%;top:36.8136%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">Franka Research 3 </span><span class="s hv" style="left:18.8760%;top:36.8136%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">robotic arm equipped with an </span><span class="s hv" style="left:39.8885%;top:36.8136%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">Intel RealSense </span><span class="gap"> </span><span class="s hv" style="left:5.1545%;top:40.1470%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">D435i</span><span class="s hv" style="left:9.2370%;top:40.1470%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474"> RGB-D camera. The system relies entirely on </span><span class="s hv" style="left:41.3964%;top:40.1470%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">ROS Noetic</span><span class="s hv" style="left:49.6453%;top:40.1470%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474"> to </span><span class="gap"> </span><span class="s hv" style="left:5.1545%;top:43.4803%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">perform pick-and-place operations of objects with different shapes </span><span class="gap"> </span><span class="s hv" style="left:5.1545%;top:46.8136%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">and colors, ArUco marker recognition and tracking, and object </span><span class="gap"> </span><span class="s hv" style="left:5.1545%;top:50.1470%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">detection. Experimental tests were conducted both in simulation </span><span class="gap"> </span><span class="s hv" style="left:5.1545%;top:53.4803%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">(</span><span class="s hv" style="left:5.6748%;top:53.4803%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">Gazebo</span><span class="s hv" style="left:11.1474%;top:53.4803%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474"> and </span><span class="s hv" style="left:14.7083%;top:53.4803%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">Rviz</span><span class="s hv" style="left:17.7464%;top:53.4803%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">) and on the real robotic setup </span></div>
-      <div class="p head"><span class="s hn" style="left:5.1545%;top:61.1580%;--fs:1.3281cqw;--fm:14.3px;font-weight:700;color:#747474">•</span><span class="s hn" style="left:5.6194%;top:60.4733%;--fs:1.7708cqw;--fm:19.0px;font-weight:700;color:#747474"> </span><span class="s hn" style="left:7.0295%;top:60.7077%;--fs:1.7708cqw;--fm:19.0px;font-weight:700;color:#747474">Technical Implementation  </span></div>
-      <div class="p sub"><span class="s hv" style="left:7.7587%;top:66.6517%;--fs:1.1719cqw;--fm:12.6px;font-weight:300;color:#747474">•</span><span class="s hv" style="left:8.3446%;top:66.0475%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474"> </span><span class="s hv" style="left:9.3212%;top:66.3508%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">Implemented a </span><span class="s hv" style="left:20.2618%;top:66.3508%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">multi-node</span><span class="s hv" style="left:27.5570%;top:66.3508%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474"> </span><span class="s hv" style="left:27.9914%;top:66.3508%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">ROS Noetic</span><span class="s hv" style="left:36.2403%;top:66.3508%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474"> system managed by a </span><span class="gap"> </span><span class="s hv" style="left:9.3212%;top:69.6841%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">central node communicating via ROS topics and action </span><span class="gap"> </span><span class="s hv" style="left:9.3212%;top:73.0174%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">clients. </span></div>
-      <div class="p sub"><span class="s hv" style="left:7.7587%;top:78.5035%;--fs:1.1719cqw;--fm:12.6px;font-weight:300;color:#747474">•</span><span class="s hv" style="left:8.3446%;top:77.8994%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474"> </span><span class="s hv" style="left:9.3212%;top:78.2026%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">Performed preliminary tests and trajectory planning in a </span><span class="gap"> </span><span class="s hv" style="left:9.3212%;top:81.5360%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">simulated environment using </span><span class="s hv" style="left:29.7853%;top:81.5360%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">Gazebo</span><span class="s hv" style="left:35.2578%;top:81.5360%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474"> and </span><span class="s hv" style="left:38.8188%;top:81.5360%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">Rviz</span></div>
-      <div class="p sub"><span class="s hv" style="left:7.7587%;top:87.0221%;--fs:1.1719cqw;--fm:12.6px;font-weight:300;color:#747474">•</span><span class="s hv" style="left:8.3446%;top:86.4179%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474"> </span><span class="s hv" style="left:9.3212%;top:86.7212%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">Validated and executed the full manipulation and perception </span><span class="gap"> </span><span class="s hv" style="left:9.3212%;top:90.0545%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">pipeline on the physical </span><span class="s hv" style="left:26.3415%;top:90.0545%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">Franka Research 3 </span><span class="s hv" style="left:40.0630%;top:90.0545%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">robot</span></div>
-      <img class="pic" src="img/s06-1.webp" alt="" loading="lazy" style="left:61.9792%;top:8.7037%;width:38.0208%;--mw:657px">
-      <div class="p pnum"><span class="s hn" style="left:97.4815%;top:94.4953%;--fs:0.9375cqw;--fm:10.1px;font-weight:400;color:#000000">6</span></div>
-      <div class="band"></div>
-  </div>
-  <p class="code"><a href="https://github.com/masileonardo/franka-manipulation-ros" target="_blank" rel="noopener">Code on GitHub</a></p>
-</section>
-<section class="slide" id="franka-manipulation-2">
-  <div class="canvas">
-      <div class="p title"><span class="s hn" style="left:4.6869%;top:13.7242%;--fs:3.0208cqw;--fm:32.5px;font-weight:700;color:#000000">Robotics Manipulation Challenge</span></div>
-      <div class="rule" style="left:4.3750%;top:20.1389%;width:39.0117%;border-top:0.0521cqw solid #9a9a9a"></div>
-      <div class="p"><span class="s hv" style="left:4.6641%;top:21.5549%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474;font-style:italic">Master’s Exam</span></div>
-      <img class="pic" src="img/s07-2.webp" alt="" loading="lazy" style="left:26.2500%;top:34.4444%;width:8.2292%;--mw:142px">
-      <img class="pic" src="img/s07-4.webp" alt="" loading="lazy" style="left:0.4167%;top:41.2963%;width:25.5208%;--mw:441px">
-      <img class="pic" src="img/s07-5.webp" alt="" loading="lazy" style="left:26.2500%;top:55.3704%;width:8.2292%;--mw:142px">
-      <div class="p"><span class="s hn" style="left:11.6198%;top:71.7643%;--fs:1.4062cqw;--fm:15.1px;font-weight:400;color:#747474">Aruco Recognition</span></div>
-      <img class="pic" src="img/s07-1.webp" alt="" loading="lazy" style="left:69.5833%;top:30.5556%;width:29.1667%;--mw:504px">
-      <img class="pic" src="img/s07-3.webp" alt="" loading="lazy" style="left:38.7500%;top:38.7037%;width:27.1875%;--mw:470px">
-      <div class="p"><span class="s hn" style="left:69.8803%;top:75.8862%;--fs:1.4062cqw;--fm:15.1px;font-weight:400;color:#747474">Compute color objects centroid for pick and </span></div>
-      <div class="p"><span class="s hn" style="left:44.1020%;top:76.1968%;--fs:1.4062cqw;--fm:15.1px;font-weight:400;color:#747474">Object Recognition Yolov8</span></div>
-      <div class="p"><span class="s hn" style="left:82.0577%;top:78.9418%;--fs:1.4062cqw;--fm:15.1px;font-weight:400;color:#747474">place</span></div>
-      <div class="p pnum"><span class="s hn" style="left:97.4815%;top:94.4953%;--fs:0.9375cqw;--fm:10.1px;font-weight:400;color:#000000">7</span></div>
-      <div class="band"></div>
-  </div>
-</section>
-<section class="slide" id="grasp-force-sensor-2">
-  <div class="canvas">
-      <div class="p title"><span class="s hn" style="left:4.5833%;top:6.9370%;--fs:2.9906cqw;--fm:32.2px;font-weight:700;color:#000000">Development of a sensor system for measuring </span><span class="gap"> </span><span class="s hn" style="left:4.5833%;top:13.4184%;--fs:2.9906cqw;--fm:32.2px;font-weight:700;color:#000000">force distribution when grasping objects</span></div>
-      <div class="rule" style="left:4.3750%;top:20.1389%;width:39.0117%;border-top:0.0521cqw solid #9a9a9a"></div>
-      <div class="p"><span class="s hv" style="left:4.6641%;top:21.5549%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474;font-style:italic">Bachelor’s Thesis Project</span></div>
-      <img class="pic" src="img/s08-2.webp" alt="" loading="lazy" style="left:3.6458%;top:38.3333%;width:12.2917%;--mw:212px">
-      <img class="pic" src="img/s08-3.webp" alt="" loading="lazy" style="left:19.8958%;top:45.5556%;width:23.5417%;--mw:407px">
-      <div class="p"><span class="s hn" style="left:10.1351%;top:74.9435%;--fs:1.4062cqw;--fm:15.1px;font-weight:400;color:#747474">Studying and testing of sensor with weight</span></div>
-      <img class="pic icon" src="img/s08-4.webp" alt="" loading="lazy" style="left:9.1667%;top:90.1852%;width:4.1667%;--mw:72px">
-      <img class="pic icon" src="img/s08-5.webp" alt="" loading="lazy" style="left:25.3125%;top:90.1852%;width:4.5833%;--mw:79px">
-      <img class="pic icon" src="img/s08-6.webp" alt="" loading="lazy" style="left:30.1042%;top:90.7407%;width:4.8958%;--mw:85px">
-      <img class="pic" src="img/s08-7.webp" alt="" loading="lazy" style="left:13.9583%;top:91.2963%;width:10.9375%;--mw:189px">
-      <img class="pic" src="img/s08-8.webp" alt="" loading="lazy" style="left:35.1042%;top:91.6667%;width:8.4375%;--mw:146px">
-      <img class="pic" src="img/s08-1.webp" alt="" loading="lazy" style="left:46.8750%;top:25.1852%;width:26.8750%;--mw:464px">
-      <div class="p head sub"><span class="s hn" style="left:76.4045%;top:37.7119%;--fs:1.3281cqw;--fm:14.3px;font-weight:700;color:#747474">•</span><span class="s hn" style="left:76.8694%;top:37.0272%;--fs:1.7708cqw;--fm:19.0px;font-weight:700;color:#747474"> </span><span class="s hn" style="left:78.1754%;top:37.2617%;--fs:1.7708cqw;--fm:19.0px;font-weight:700;color:#747474">Result </span></div>
-      <div class="p"><span class="s hv" style="left:76.4045%;top:42.9046%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">Identified the major areas of </span><span class="gap"> </span><span class="s hv" style="left:76.4045%;top:46.2380%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">pressure concentration </span><span class="gap"> </span><span class="s hv" style="left:76.4045%;top:49.5713%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">wearing exoskeleton after </span><span class="gap"> </span><span class="s hv" style="left:76.4045%;top:52.9046%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">testing sensor on male and </span><span class="gap"> </span><span class="s hv" style="left:76.4045%;top:56.2380%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">female subjects.  </span></div>
-      <div class="p"><span class="s hv" style="left:76.4045%;top:61.4232%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">Explored alternative strategies </span><span class="gap"> </span><span class="s hv" style="left:76.4045%;top:64.7565%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">and materials to further </span><span class="gap"> </span><span class="s hv" style="left:76.4045%;top:68.0898%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">enhance data acquisition </span><span class="gap"> </span><span class="s hv" style="left:76.4045%;top:71.4232%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">accuracy.</span></div>
-      <div class="p"><span class="s hn" style="left:50.1140%;top:85.2144%;--fs:1.4062cqw;--fm:15.1px;font-weight:400;color:#747474">Experimental grasping trials with </span></div>
-      <div class="p"><span class="s hn" style="left:51.7284%;top:88.2700%;--fs:1.4062cqw;--fm:15.1px;font-weight:400;color:#747474">wearable hand exoskeleton</span></div>
-      <div class="p pnum"><span class="s hn" style="left:97.4815%;top:94.4953%;--fs:0.9375cqw;--fm:10.1px;font-weight:400;color:#000000">8</span></div>
-      <div class="band"></div>
-  </div>
-</section>
-<section class="slide" id="lidar-analysis">
-  <div class="canvas">
-      <div class="p title"><span class="s hn" style="left:4.5833%;top:6.1363%;--fs:3.0208cqw;--fm:32.5px;font-weight:700;color:#000000">Performance Analysis of Lidar L1 in Indoor and </span><span class="gap"> </span><span class="s hn" style="left:4.5833%;top:12.8030%;--fs:3.0208cqw;--fm:32.5px;font-weight:700;color:#000000">Outdoor Environments</span></div>
-      <div class="rule" style="left:4.3750%;top:20.1389%;width:39.0117%;border-top:0.0521cqw solid #9a9a9a"></div>
-      <div class="p"><span class="s hv" style="left:4.6641%;top:21.5549%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474;font-style:italic">Master’s Project Work</span></div>
-      <div class="p head"><span class="s hn" style="left:5.1545%;top:28.2875%;--fs:1.3281cqw;--fm:14.3px;font-weight:700;color:#747474">•</span><span class="s hn" style="left:5.6194%;top:27.6028%;--fs:1.7708cqw;--fm:19.0px;font-weight:700;color:#747474"> </span><span class="s hn" style="left:6.9254%;top:27.8372%;--fs:1.7708cqw;--fm:19.0px;font-weight:700;color:#747474">Overview </span></div>
-      <div class="p"><span class="s hv" style="left:5.1545%;top:33.4803%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">Conducted a comprehensive performance evaluation of the </span><span class="s hv" style="left:47.2155%;top:33.4803%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">Unitree </span><span class="gap"> </span><span class="s hv" style="left:5.1545%;top:36.8136%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">Lidar L1 </span><span class="s hv" style="left:11.2351%;top:36.8136%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">sensor to determine optimal operational parameters for </span><span class="gap"> </span><span class="s hv" style="left:5.1545%;top:40.1470%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">autonomous navigation. The study focused on assessing the </span><span class="gap"> </span><span class="s hv" style="left:5.1545%;top:43.4803%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">sensor&#x27;s precision and reliability across diverse environments, </span><span class="gap"> </span><span class="s hv" style="left:5.1545%;top:46.8136%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">analyzing how installation height, orientation, and atmospheric </span><span class="gap"> </span><span class="s hv" style="left:5.1545%;top:50.1470%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">conditions impact data quality. This benchmark analysis provides </span><span class="gap"> </span><span class="s hv" style="left:5.1545%;top:53.4803%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">critical insights for optimizing </span><span class="s hv" style="left:25.9045%;top:53.4803%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">SLAM (Simultaneous Localization and </span><span class="gap"> </span><span class="s hv" style="left:5.1545%;top:56.8137%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">Mapping)</span><span class="s hv" style="left:11.6685%;top:56.8137%;--fs:1.5625cqw;--fm:16.8px;font-weight:700;color:#747474"> </span><span class="s hv" style="left:12.1026%;top:56.8137%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">algorithms in varying operational scenarios. </span></div>
-      <div class="p head"><span class="s hn" style="left:5.1545%;top:64.4914%;--fs:1.3281cqw;--fm:14.3px;font-weight:700;color:#747474">•</span><span class="s hn" style="left:5.6194%;top:63.8066%;--fs:1.7708cqw;--fm:19.0px;font-weight:700;color:#747474"> </span><span class="s hn" style="left:7.0295%;top:64.0411%;--fs:1.7708cqw;--fm:19.0px;font-weight:700;color:#747474">Technical Implementation  </span></div>
-      <div class="p sub"><span class="s hv" style="left:7.7587%;top:69.9850%;--fs:1.1719cqw;--fm:12.6px;font-weight:300;color:#747474">•</span><span class="s hv" style="left:8.3446%;top:69.3809%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474"> </span><span class="s hv" style="left:9.3212%;top:69.6841%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">Utilised</span><span class="s hv" style="left:14.5290%;top:69.6841%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474"> ROS (Robot Operating System)</span><span class="s hv" style="left:36.9327%;top:69.6841%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474"> to interface with the </span><span class="gap"> </span><span class="s hv" style="left:9.3212%;top:73.0175%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">Lidar L1 and capture high-frequency spatial data; </span></div>
-      <div class="p sub"><span class="s hv" style="left:7.7587%;top:78.5036%;--fs:1.1719cqw;--fm:12.6px;font-weight:300;color:#747474">•</span><span class="s hv" style="left:8.3446%;top:77.8994%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474"> </span><span class="s hv" style="left:9.3212%;top:78.2027%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">Exported raw data into </span><span class="s hv" style="left:25.5868%;top:78.2027%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">CSV</span><span class="s hv" style="left:28.7996%;top:78.2027%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474"> formats for statistical analysis </span><span class="gap"> </span><span class="s hv" style="left:9.3212%;top:81.5360%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">and performance mapping; </span></div>
-      <div class="p sub"><span class="s hv" style="left:7.7587%;top:87.0221%;--fs:1.1719cqw;--fm:12.6px;font-weight:300;color:#747474">•</span><span class="s hv" style="left:8.3446%;top:86.4180%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474"> </span><span class="s hv" style="left:9.3212%;top:86.7213%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">Use </span><span class="s hv" style="left:12.5337%;top:86.7213%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">MATLAB</span><span class="s hv" style="left:18.6700%;top:86.7213%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474"> for advanced processing of point clouds and to </span><span class="gap"> </span><span class="s hv" style="left:9.3212%;top:90.0546%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">validate the consistency of SLAM-generated maps;</span></div>
-      <img class="pic" src="img/s09-1.webp" alt="" loading="lazy" style="left:59.4792%;top:19.6296%;width:17.6042%;--mw:304px">
-      <img class="pic" src="img/s09-2.webp" alt="" loading="lazy" style="left:82.2917%;top:47.9630%;width:13.5417%;--mw:234px">
-      <div class="p"><span class="s hn" style="left:63.1650%;top:51.2110%;--fs:1.4062cqw;--fm:15.1px;font-weight:400;color:#747474">L1 Unitree Lidar</span></div>
-      <img class="pic" src="img/s09-3.webp" alt="" loading="lazy" style="left:68.9583%;top:54.8148%;width:26.5625%;--mw:459px">
-      <div class="p"><span class="s hn" style="left:75.1619%;top:90.9634%;--fs:1.4062cqw;--fm:15.1px;font-weight:400;color:#747474">Example of acquisition </span></div>
-      <div class="p pnum"><span class="s hn" style="left:97.4815%;top:94.4953%;--fs:0.9375cqw;--fm:10.1px;font-weight:400;color:#000000">9</span></div>
-      <div class="band"></div>
-  </div>
-  <p class="code"><a href="https://github.com/masileonardo/lidar-l1-performance-analysis" target="_blank" rel="noopener">Code on GitHub</a></p>
-</section>
-<section class="slide" id="ppg-circuit">
-  <div class="canvas">
-      <div class="p title"><span class="s hn" style="left:4.4797%;top:13.4204%;--fs:3.0208cqw;--fm:32.5px;font-weight:700;color:#000000">Circuit for estimating cardiac pulsation </span></div>
-      <div class="rule" style="left:4.3750%;top:20.1389%;width:39.0117%;border-top:0.0521cqw solid #9a9a9a"></div>
-      <div class="p"><span class="s hv" style="left:4.6641%;top:21.5549%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474;font-style:italic">Master’s Project Work</span></div>
-      <div class="p head"><span class="s hn" style="left:5.1545%;top:28.2677%;--fs:1.3148cqw;--fm:14.1px;font-weight:700;color:#747474">•</span><span class="s hn" style="left:5.6147%;top:27.5898%;--fs:1.7531cqw;--fm:18.8px;font-weight:700;color:#747474"> </span><span class="s hn" style="left:6.9077%;top:27.8724%;--fs:1.7531cqw;--fm:18.8px;font-weight:700;color:#747474">Overview </span></div>
-      <div class="p"><span class="s hv" style="left:5.1545%;top:33.4922%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">Designed and prototyped an analog electronic system for real-time </span><span class="gap"> </span><span class="s hv" style="left:5.1545%;top:36.8256%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">heart rate monitoring using </span><span class="s hv" style="left:24.1811%;top:36.8256%;--fs:1.5469cqw;--fm:16.6px;font-weight:400;color:#747474">non-invasive photoplethysmography</span><span class="s hv" style="left:48.9462%;top:36.8256%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474"> </span><span class="gap"> </span><span class="s hv" style="left:5.1545%;top:40.1590%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">(</span><span class="s hv" style="left:5.6696%;top:40.1590%;--fs:1.5469cqw;--fm:16.6px;font-weight:400;color:#747474">PPG</span><span class="s hv" style="left:8.9363%;top:40.1590%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">). The project focused on the complete development of a </span><span class="gap"> </span><span class="s hv" style="left:5.1545%;top:43.4923%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">signal conditioning chain, from raw optical data acquisition to a </span><span class="gap"> </span><span class="s hv" style="left:5.1545%;top:46.8257%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">filtered analog output, demonstrating core skills in medical </span><span class="gap"> </span><span class="s hv" style="left:5.1545%;top:50.1590%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">instrumentation and precision analog design. </span></div>
-      <div class="p head"><span class="s hn" style="left:5.1545%;top:57.7474%;--fs:1.3148cqw;--fm:14.1px;font-weight:700;color:#747474">•</span><span class="s hn" style="left:5.6147%;top:57.0695%;--fs:1.7531cqw;--fm:18.8px;font-weight:700;color:#747474"> </span><span class="s hn" style="left:7.0108%;top:57.3521%;--fs:1.7531cqw;--fm:18.8px;font-weight:700;color:#747474">Technical Implementation  </span></div>
-      <div class="p sub"><span class="s hv" style="left:7.7587%;top:63.2653%;--fs:1.1602cqw;--fm:12.5px;font-weight:300;color:#747474">•</span><span class="s hv" style="left:8.3388%;top:62.6671%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474"> </span><span class="s hv" style="left:9.3056%;top:62.9720%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">Utilised a </span><span class="s hv" style="left:16.1814%;top:62.9720%;--fs:1.5469cqw;--fm:16.6px;font-weight:400;color:#747474">TCRT1000 </span><span class="s hv" style="left:24.1492%;top:62.9720%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">reflective optical sensor to detect micro-</span><span class="gap"></span><span class="s hv" style="left:9.3056%;top:66.3053%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">vascular blood volume changes through a photodiode; </span></div>
-      <div class="p sub"><span class="s hv" style="left:7.7587%;top:71.7653%;--fs:1.1602cqw;--fm:12.5px;font-weight:300;color:#747474">•</span><span class="s hv" style="left:8.3388%;top:71.1672%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474"> </span><span class="s hv" style="left:9.3056%;top:71.4720%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">Designed a </span><span class="s hv" style="left:17.7298%;top:71.4720%;--fs:1.5469cqw;--fm:16.6px;font-weight:400;color:#747474">dual-stage conditioning circuit</span><span class="s hv" style="left:38.1089%;top:71.4720%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474"> based on the </span><span class="gap"> </span><span class="s hv" style="left:9.3056%;top:74.8054%;--fs:1.5469cqw;--fm:16.6px;font-weight:400;color:#747474">LM358</span><span class="s hv" style="left:14.0353%;top:74.8054%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474"> operational amplifier; </span></div>
-      <div class="p sub"><span class="s hv" style="left:7.7587%;top:80.2654%;--fs:1.1602cqw;--fm:12.5px;font-weight:300;color:#747474">•</span><span class="s hv" style="left:8.3388%;top:79.6673%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474"> </span><span class="s hv" style="left:9.3056%;top:79.9721%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">Performed full </span><span class="s hv" style="left:19.4175%;top:79.9721%;--fs:1.5469cqw;--fm:16.6px;font-weight:400;color:#747474">PCB assembly</span><span class="s hv" style="left:29.5613%;top:79.9721%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474"> and hardware validation, </span><span class="gap"> </span><span class="s hv" style="left:9.3056%;top:83.3055%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">utilising soldering and professional laboratory instrumentation, </span><span class="gap"> </span><span class="s hv" style="left:9.3056%;top:86.6388%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">including </span><span class="s hv" style="left:16.0963%;top:86.6388%;--fs:1.5469cqw;--fm:16.6px;font-weight:400;color:#747474">oscilloscopes</span><span class="s hv" style="left:25.2960%;top:86.6388%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">, </span><span class="s hv" style="left:26.1561%;top:86.6388%;--fs:1.5469cqw;--fm:16.6px;font-weight:400;color:#747474">signal generators</span><span class="s hv" style="left:38.0228%;top:86.6388%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">, and </span><span class="s hv" style="left:41.9781%;top:86.6388%;--fs:1.5469cqw;--fm:16.6px;font-weight:400;color:#747474">multimeters</span><span class="s hv" style="left:49.9716%;top:86.6388%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">, to </span><span class="gap"> </span><span class="s hv" style="left:9.3056%;top:89.9722%;--fs:1.5469cqw;--fm:16.6px;font-weight:300;color:#747474">characterize system response and signal integrity;</span></div>
-      <img class="pic" src="img/s10-1.webp" alt="" loading="lazy" style="left:57.5000%;top:23.3333%;width:40.1042%;--mw:693px">
-      <div class="p"><span class="s hn" style="left:70.9165%;top:55.6981%;--fs:1.4062cqw;--fm:15.1px;font-weight:400;color:#747474">Electronic Schematic</span></div>
-      <img class="pic" src="img/s10-2.webp" alt="" loading="lazy" style="left:74.5833%;top:61.1111%;width:18.2292%;--mw:315px">
-      <div class="p"><span class="s hn" style="left:78.7339%;top:90.7951%;--fs:1.4062cqw;--fm:15.1px;font-weight:400;color:#747474">Assembled PCB</span></div>
-      <div class="p pnum"><span class="s hn" style="left:97.4815%;top:94.4953%;--fs:0.9375cqw;--fm:10.1px;font-weight:400;color:#000000">10</span></div>
-      <div class="band"></div>
-  </div>
-  <p class="code"><a href="https://github.com/masileonardo/ppg-heart-rate-circuit" target="_blank" rel="noopener">Code on GitHub</a></p>
-</section>
-<section class="slide" id="vehicle-dynamics">
-  <div class="canvas">
-      <div class="p title"><span class="s hn" style="left:4.6869%;top:13.7242%;--fs:3.0208cqw;--fm:32.5px;font-weight:700;color:#000000">Modeling and Identifying Vehicle Dynamics</span></div>
-      <div class="rule" style="left:4.3750%;top:20.1389%;width:39.0117%;border-top:0.0521cqw solid #9a9a9a"></div>
-      <div class="p"><span class="s hv" style="left:4.6641%;top:21.5549%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474;font-style:italic">Master’s Project Work</span></div>
-      <div class="p head"><span class="s hn" style="left:5.1545%;top:28.2875%;--fs:1.3281cqw;--fm:14.3px;font-weight:700;color:#747474">•</span><span class="s hn" style="left:5.6194%;top:27.6028%;--fs:1.7708cqw;--fm:19.0px;font-weight:700;color:#747474"> </span><span class="s hn" style="left:6.9254%;top:27.8372%;--fs:1.7708cqw;--fm:19.0px;font-weight:700;color:#747474">Overview </span></div>
-      <div class="p"><span class="s hv" style="left:5.1545%;top:33.4802%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">Validated mathematical models for vehicle dynamics to accurately </span><span class="gap"> </span><span class="s hv" style="left:5.1545%;top:36.8135%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">predict and identify system behavior. The project focused on a </span><span class="gap"> </span><span class="s hv" style="left:5.1545%;top:40.1469%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">simulation-driven</span><span class="s hv" style="left:16.9648%;top:40.1469%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474"> approach to characterise the response of </span><span class="gap"> </span><span class="s hv" style="left:5.1545%;top:43.4803%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">complex mechanical systems under varying operational conditions, </span><span class="gap"> </span><span class="s hv" style="left:5.1545%;top:46.8136%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">ensuring high reliability in dynamic state estimation. </span></div>
-      <div class="p head"><span class="s hn" style="left:5.1545%;top:54.4912%;--fs:1.3281cqw;--fm:14.3px;font-weight:700;color:#747474">•</span><span class="s hn" style="left:5.6194%;top:53.8065%;--fs:1.7708cqw;--fm:19.0px;font-weight:700;color:#747474"> </span><span class="s hn" style="left:7.0295%;top:54.0410%;--fs:1.7708cqw;--fm:19.0px;font-weight:700;color:#747474">Technical Implementation  </span></div>
-      <div class="p sub"><span class="s hv" style="left:7.7587%;top:59.9849%;--fs:1.1719cqw;--fm:12.6px;font-weight:300;color:#747474">•</span><span class="s hv" style="left:8.3446%;top:59.3807%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474"> </span><span class="s hv" style="left:9.3212%;top:59.6840%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">Performed </span><span class="s hv" style="left:17.1040%;top:59.6840%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">Non-linear Grey-box Identification </span><span class="s hv" style="left:40.8131%;top:59.6840%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">using the </span><span class="gap"> </span><span class="s hv" style="left:9.3212%;top:63.0174%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">IDNLGREY</span><span class="s hv" style="left:17.3092%;top:63.0174%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474"> object in MATLAB to estimate physical </span><span class="gap"> </span><span class="s hv" style="left:9.3212%;top:66.3507%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">parameters from experimental data; </span></div>
-      <div class="p sub"><span class="s hv" style="left:7.7587%;top:71.8368%;--fs:1.1719cqw;--fm:12.6px;font-weight:300;color:#747474">•</span><span class="s hv" style="left:8.3446%;top:71.2326%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474"> </span><span class="s hv" style="left:9.3212%;top:71.5359%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">Repeat the process with real data from Volvo V70 car;</span></div>
-      <img class="pic" src="img/s11-1.webp" alt="" loading="lazy" style="left:73.3333%;top:4.8148%;width:21.4583%;--mw:371px">
-      <img class="pic" src="img/s11-2.webp" alt="" loading="lazy" style="left:58.4375%;top:48.8889%;width:33.1250%;--mw:572px">
-      <img class="pic" src="img/s11-3.webp" alt="" loading="lazy" style="left:50.9375%;top:88.5185%;width:7.3958%;--mw:128px">
-      <div class="p pnum"><span class="s hn" style="left:97.4815%;top:94.4953%;--fs:0.9375cqw;--fm:10.1px;font-weight:400;color:#000000">11</span></div>
-      <div class="band"></div>
-  </div>
-  <p class="code"><a href="https://github.com/masileonardo/vehicle-dynamics-identification" target="_blank" rel="noopener">Code on GitHub</a></p>
-</section>
-<section class="slide" id="tangent-bug">
-  <div class="canvas">
-      <div class="p title"><span class="s hn" style="left:4.6869%;top:13.7242%;--fs:3.0208cqw;--fm:32.5px;font-weight:700;color:#000000">Implementation of the Tangent Bug Algorithm</span></div>
-      <div class="rule" style="left:4.3750%;top:20.1389%;width:39.0117%;border-top:0.0521cqw solid #9a9a9a"></div>
-      <div class="p"><span class="s hv" style="left:4.6641%;top:21.5549%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474;font-style:italic">Master’s Project Work</span></div>
-      <div class="p head"><span class="s hn" style="left:4.7336%;top:33.9747%;--fs:1.3281cqw;--fm:14.3px;font-weight:700;color:#747474">•</span><span class="s hn" style="left:5.1985%;top:33.2899%;--fs:1.7708cqw;--fm:19.0px;font-weight:700;color:#747474"> </span><span class="s hn" style="left:6.5045%;top:33.5244%;--fs:1.7708cqw;--fm:19.0px;font-weight:700;color:#747474">Overview </span></div>
-      <div class="p"><span class="s hv" style="left:4.7336%;top:39.1674%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">Simulation of the algorithm in virtual environment </span><span class="gap"> </span><span class="s hv" style="left:4.7336%;top:42.5007%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">using PyCharm for testing purposes by varying </span><span class="gap"> </span><span class="s hv" style="left:4.7336%;top:45.8341%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">the main parameters. </span></div>
-      <div class="p head"><span class="s hn" style="left:4.7336%;top:53.5117%;--fs:1.3281cqw;--fm:14.3px;font-weight:700;color:#747474">•</span><span class="s hn" style="left:5.1985%;top:52.8270%;--fs:1.7708cqw;--fm:19.0px;font-weight:700;color:#747474"> </span><span class="s hn" style="left:6.6086%;top:53.0614%;--fs:1.7708cqw;--fm:19.0px;font-weight:700;color:#747474">Technical Implementation  </span></div>
-      <div class="p sub"><span class="s hv" style="left:7.3378%;top:59.0054%;--fs:1.1719cqw;--fm:12.6px;font-weight:300;color:#747474">•</span><span class="s hv" style="left:7.9237%;top:58.4012%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474"> </span><span class="s hv" style="left:8.9003%;top:58.7045%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">Implemented a </span><span class="s hv" style="left:19.8409%;top:58.7045%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">two-state machine</span><span class="s hv" style="left:32.5202%;top:58.7045%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">: Move-</span><span class="gap"></span><span class="s hv" style="left:8.9003%;top:62.0378%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">to-goal and Boundary-following behavior; </span></div>
-      <div class="p sub"><span class="s hv" style="left:7.3378%;top:67.5239%;--fs:1.1719cqw;--fm:12.6px;font-weight:300;color:#747474">•</span><span class="s hv" style="left:7.9237%;top:66.9198%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474"> </span><span class="s hv" style="left:8.9003%;top:67.2230%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">Created a </span><span class="s hv" style="left:16.2534%;top:67.2230%;--fs:1.5625cqw;--fm:16.8px;font-weight:400;color:#747474">graphical interface</span><span class="s hv" style="left:29.0212%;top:67.2230%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474"> and GIFs </span><span class="gap"> </span><span class="s hv" style="left:8.9003%;top:70.5564%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474">with different parameters;</span></div>
-      <img class="pic icon" src="img/s12-3.webp" alt="" loading="lazy" style="left:47.0833%;top:81.4815%;width:4.6875%;--mw:81px">
-      <img class="pic" src="img/s12-1.webp" alt="" loading="lazy" style="left:42.5000%;top:32.4074%;width:55.4167%;--mw:958px">
-      <img class="pic" src="img/s12-2.webp" alt="" loading="lazy" style="left:61.3542%;top:81.1111%;width:24.1667%;--mw:418px">
-      <div class="p pnum"><span class="s hn" style="left:97.4815%;top:94.4953%;--fs:0.9375cqw;--fm:10.1px;font-weight:400;color:#000000">12</span></div>
-      <div class="band"></div>
-  </div>
-  <p class="code"><a href="https://github.com/masileonardo/tangent-bug-planner" target="_blank" rel="noopener">Code on GitHub</a></p>
-</section>
-<section class="slide" id="robocup">
-  <div class="canvas">
-      <div class="p title"><span class="s hn" style="left:4.4797%;top:13.4204%;--fs:3.0208cqw;--fm:32.5px;font-weight:700;color:#000000">RoboCup Junior Experience </span></div>
-      <div class="rule" style="left:4.3750%;top:20.1389%;width:39.0117%;border-top:0.0521cqw solid #9a9a9a"></div>
-      <div class="p"><span class="s hv" style="left:4.6641%;top:21.5549%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474;font-style:italic">Team Leader</span></div>
-      <img class="pic" src="img/s13-2.webp" alt="" loading="lazy" style="left:5.1042%;top:30.0000%;width:41.7708%;--mw:722px">
-      <div class="p"><span class="s hn" style="left:8.8380%;top:86.3243%;--fs:1.4062cqw;--fm:15.1px;font-weight:400;color:#747474">RoboCup Junior Empoli - Me (on the left) and my team</span></div>
-      <img class="pic" src="img/s13-1.webp" alt="" loading="lazy" style="left:49.8958%;top:20.9259%;width:8.9583%;--mw:155px">
-      <img class="pic" src="img/s13-3.webp" alt="" loading="lazy" style="left:52.1875%;top:30.9259%;width:46.8750%;--mw:810px">
-      <div class="p"><span class="s hn" style="left:67.8709%;top:85.8996%;--fs:1.4062cqw;--fm:15.1px;font-weight:400;color:#747474">Example of a race circuit</span></div>
-      <div class="p pnum"><span class="s hn" style="left:97.4815%;top:94.4953%;--fs:0.9375cqw;--fm:10.1px;font-weight:400;color:#000000">13</span></div>
-      <div class="band"></div>
-  </div>
-</section>
-<section class="slide" id="rami">
-  <div class="canvas">
-      <div class="p title"><span class="s hn" style="left:4.4797%;top:13.4204%;--fs:3.0208cqw;--fm:32.5px;font-weight:700;color:#000000">RAMI Competition La Spezia  </span></div>
-      <div class="rule" style="left:4.3750%;top:20.1389%;width:39.0117%;border-top:0.0521cqw solid #9a9a9a"></div>
-      <div class="p"><span class="s hv" style="left:4.6641%;top:21.5549%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474;font-style:italic">Visitor experience</span></div>
-      <img class="pic" src="img/s14-2.webp" alt="" loading="lazy" style="left:5.2083%;top:30.7407%;width:41.2500%;--mw:713px">
-      <div class="p"><span class="s hn" style="left:15.0033%;top:81.9460%;--fs:1.4062cqw;--fm:15.1px;font-weight:400;color:#747474">RAMI Competition La Spezia 2023</span></div>
-      <img class="pic" src="img/s14-1.webp" alt="" loading="lazy" style="left:51.6667%;top:21.2963%;width:7.2917%;--mw:126px">
-      <img class="pic" src="img/s14-3.webp" alt="" loading="lazy" style="left:54.5833%;top:30.7407%;width:42.6042%;--mw:736px">
-      <div class="p"><span class="s hn" style="left:59.9620%;top:81.9460%;--fs:1.4062cqw;--fm:15.1px;font-weight:400;color:#747474">FeelHippo AUV - The UNIFI Robotics Team&#x27;s robot</span></div>
-      <div class="p pnum"><span class="s hn" style="left:97.4815%;top:94.4953%;--fs:0.9375cqw;--fm:10.1px;font-weight:400;color:#000000">14</span></div>
-      <div class="band"></div>
-  </div>
-</section>
-<section class="slide" id="diy">
-  <div class="canvas">
-      <div class="p title"><span class="s hn" style="left:4.4797%;top:13.4204%;--fs:3.0208cqw;--fm:32.5px;font-weight:700;color:#000000">DIY Project </span></div>
-      <div class="rule" style="left:4.3750%;top:20.1389%;width:39.0117%;border-top:0.0521cqw solid #9a9a9a"></div>
-      <div class="p"><span class="s hv" style="left:4.6641%;top:21.5549%;--fs:1.5625cqw;--fm:16.8px;font-weight:300;color:#747474;font-style:italic">Personal Project</span></div>
-      <img class="pic" src="img/s15-1.webp" alt="" loading="lazy" style="left:5.6250%;top:31.1111%;width:41.8750%;--mw:724px">
-      <div class="p"><span class="s hn" style="left:18.3834%;top:87.5156%;--fs:1.4062cqw;--fm:15.1px;font-weight:400;color:#747474">Iron Man mask 3D printed</span></div>
-      <img class="pic" src="img/s15-2.webp" alt="" loading="lazy" style="left:55.0000%;top:32.2222%;width:40.0000%;--mw:691px">
-      <div class="p"><span class="s hn" style="left:55.9067%;top:86.3330%;--fs:1.4062cqw;--fm:15.1px;font-weight:400;color:#747474">Cable connections and green 3D-printed support for Arduino</span></div>
-      <div class="p pnum"><span class="s hn" style="left:97.4815%;top:94.4953%;--fs:0.9375cqw;--fm:10.1px;font-weight:400;color:#000000">15</span></div>
-      <div class="band"></div>
-  </div>
-</section>
+<header class="top"><div class="wrap">
+  <a class="name" href="#top">LEONARDO MASI</a>
+  <nav aria-label="Sections"><a href="#about">About</a><a href="#thesis">Thesis</a><a href="#projects">Projects</a><a href="#competitions">Competitions</a><a href="#diy">DIY</a><a href="#skills">Skills</a><a href="#contact">Contact</a></nav>
+</div></header>
+
+<main id="top">
+  <section class="hero" id="about"><div class="wrap hero-grid">
+    <div>
+      <h1>LEONARDO MASI</h1>
+      <hr class="cover-rule">
+      <p class="cover-sub">Robotics and Automation Engineering | Master's Student Portfolio</p>
+      <div class="about"><p>Hi!</p><p>My name is Leonardo Masi. I am a Master's Student in Robotics, Automation and Electrical Engineering at the University of Florence, with a background in Biomedical Engineering.</p><p>Right now I'm in London for my Master's thesis at <strong>UCL Hawkes Institute</strong> (September 2026 - January 2027), where I'm working on a soft robotic capsule for endoscopy. I will graduate in April 2027 and <strong>I'm available to start working from February 2027</strong>.</p><p>Thank you for taking a few minutes to review my portfolio and know more about my work. Here you can find the most significant projects I have completed recently.</p></div>
+      <ul class="contacts"><li><img src="img/s02-2.webp" alt=""><a href="https://www.linkedin.com/in/leonardo-masi-b09b28219/" target="_blank" rel="noopener">Leonardo Masi</a></li><li><img src="img/s02-3.webp" alt=""><a href="mailto:leomasi1705@gmail.com">leomasi1705@gmail.com</a></li><li><span class="gh" aria-hidden="true">GitHub</span><a href="https://github.com/masileonardo" target="_blank" rel="noopener">github.com/masileonardo</a></li><li><img src="img/s04-7.webp" alt=""><a href="https://www.youtube.com/@leonardomasi1633" target="_blank" rel="noopener">Leonardo Masi</a></li></ul>
+    </div>
+    <img class="photo" src="img/s02-1.webp" alt="Leonardo Masi" width="1100" height="1372">
+  </div></section>
+  <div class="band"></div>
+
+  <section class="sec current" id="thesis"><div class="wrap">
+    <p class="label">What I'm working on</p>
+    <header class="slide-head"><h2>Soft robotic capsule for endoscopy</h2><hr><p class="kicker">Master&#x27;s Thesis | UCL Hawkes Institute, London | September 2026 - January 2027</p></header>
+    <div class="cols">
+      <div class="text"><h3 class="head">Overview</h3><p>Design and development of a <strong>soft robotic capsule</strong> for the delivery of injectable therapies in small and large bowel endoscopy. I'm following the whole development of the prototype, from the mechanical design to the electronics and the firmware.</p><p class="note">The project is still in progress, so I can&#x27;t share code and photos yet.</p></div>
+      <div class="text"><h3 class="head">Technical Implementation</h3><ul><li>Mechanical design with <strong>SolidWorks</strong>;</li><li>Electronics and firmware on <strong>STM32</strong> (Nucleo-64 F401RE);</li><li><strong>FDM and SLA 3D printing</strong> (Bambu Lab, Formlabs);</li><li>Fabrication of <strong>silicone</strong> components.</li></ul></div>
+    </div>
+  </div></section>
+  <div class="band"></div>
+
+  <section class="sec" id="projects"><div class="wrap">
+    <header class="slide-head"><h2>Projects</h2><hr><p class="kicker">Robotics, biomedical electronics and modelling</p></header>
+    <div class="filters" role="group" aria-label="Filter projects by area"><button type="button" data-f="all" aria-pressed="true">All</button><button type="button" data-f="robotics" aria-pressed="false">Robotics</button><button type="button" data-f="biomedical" aria-pressed="false">Biomedical &amp; Electronics</button><button type="button" data-f="modelling" aria-pressed="false">Modelling &amp; Identification</button></div>
+    <div class="area" data-area="robotics"><h3 class="area-title">Robotics</h3><div class="grid"><a class="card" href="#franka-manipulation" data-area="robotics"><span class="card-img"><img src="img/s07-3.webp" alt="" loading="lazy"></span><span class="card-title">Robotics Manipulation Challenge</span><span class="kicker">Master’s Exam</span><span class="card-sum">Developed an automated robotic manipulation pipeline using a Franka Research 3 robotic arm equipped with an Intel RealSense D435i RGB-D camera.</span><span class="more">Read more</span></a><a class="card" href="#perseverance-rover" data-area="robotics"><span class="card-img"><img src="img/s03-1.webp" alt="" loading="lazy"></span><span class="card-title">Rover Perseverance | Mission Simulator</span><span class="kicker">Personal Project</span><span class="card-sum">I developed a mechatronic prototype to simulate the autonomous operations of the Perseverance rover on Mars.</span><span class="more">Read more</span></a><a class="card" href="#lidar-analysis" data-area="robotics"><span class="card-img"><img src="img/s09-3.webp" alt="" loading="lazy"></span><span class="card-title">Performance Analysis of Lidar L1 in Indoor and Outdoor Environments</span><span class="kicker">Master’s Project Work</span><span class="card-sum">Conducted a comprehensive performance evaluation of the Unitree Lidar L1 sensor to determine optimal operational parameters for autonomous navigation.</span><span class="more">Read more</span></a><a class="card" href="#tangent-bug" data-area="robotics"><span class="card-img"><img src="img/s12-m0.webp" alt="" loading="lazy"></span><span class="card-title">Implementation of the Tangent Bug Algorithm</span><span class="kicker">Master’s Project Work</span><span class="card-sum">Simulation of the algorithm in virtual environment using PyCharm for testing purposes by varying the main parameters.</span><span class="more">Read more</span></a></div></div><div class="area" data-area="biomedical"><h3 class="area-title">Biomedical &amp; Electronics</h3><div class="grid"><a class="card" href="#grasp-force-sensor" data-area="biomedical"><span class="card-img"><img src="img/s08-1.webp" alt="" loading="lazy"></span><span class="card-title">Development of a sensor system for measuring force distribution when grasping objects</span><span class="kicker">Bachelor’s Thesis Project</span><span class="card-sum">Developed a sensorized object to measure and map force distribution during grasping tasks.</span><span class="more">Read more</span></a><a class="card" href="#ppg-circuit" data-area="biomedical"><span class="card-img"><img src="img/s10-2.webp" alt="" loading="lazy"></span><span class="card-title">Circuit for estimating cardiac pulsation</span><span class="kicker">Master’s Project Work</span><span class="card-sum">Designed and prototyped an analog electronic system for real-time heart rate monitoring using non-invasive photoplethysmography (PPG).</span><span class="more">Read more</span></a></div></div><div class="area" data-area="modelling"><h3 class="area-title">Modelling &amp; Identification</h3><div class="grid"><a class="card" href="#vehicle-dynamics" data-area="modelling"><span class="card-img"><img src="img/s11-2.webp" alt="" loading="lazy"></span><span class="card-title">Modeling and Identifying Vehicle Dynamics</span><span class="kicker">Master’s Project Work</span><span class="card-sum">Validated mathematical models for vehicle dynamics to accurately predict and identify system behavior.</span><span class="more">Read more</span></a></div></div>
+  </div></section>
+  <div class="band"></div>
+
+  <section class="sec" id="competitions"><div class="wrap">
+    <header class="slide-head"><h2>Competitions</h2><hr></header>
+    <article class="block"><header class="slide-head"><h3>RoboCup Junior Experience</h3><hr><p class="kicker">Team Leader | 2017 - 2021</p></header><p class="lead">I took part in the RoboCup Junior Rescue Line competition with my high school team. I worked on the <strong>mechanical design</strong>, the <strong>electronics</strong> and the <strong>programming</strong> of the robots, and for 2 years I was <strong>team leader</strong> of a group of 5 people: we won the national phases and qualified for the international finals.</p><div class="logos"><img src="img/s13-1.webp" alt="" loading="lazy"></div><div class="row"><figure class=""><img src="img/s13-2.webp" alt="RoboCup Junior Empoli - Me (on the left) and my team" loading="lazy"><figcaption>RoboCup Junior Empoli - Me (on the left) and my team</figcaption></figure><figure class=""><img src="img/s13-3.webp" alt="Example of a race circuit" loading="lazy"><figcaption>Example of a race circuit</figcaption></figure></div></article>
+    <article class="block"><header class="slide-head"><h3>RAMI Competition La Spezia</h3><hr><p class="kicker">UNIFI Robotics Team | 2023</p></header><p class="lead">International marine robotics competition in La Spezia. I was there with the <strong>UNIFI Robotics Team</strong>, that won <strong>1st place</strong> with the FeelHippo AUV.</p><div class="logos"><img src="img/s14-1.webp" alt="" loading="lazy"></div><div class="row"><figure class=""><img src="img/s14-2.webp" alt="RAMI Competition La Spezia 2023" loading="lazy"><figcaption>RAMI Competition La Spezia 2023</figcaption></figure><figure class=""><img src="img/s14-3.webp" alt="FeelHippo AUV - The UNIFI Robotics Team&#x27;s robot" loading="lazy"><figcaption>FeelHippo AUV - The UNIFI Robotics Team&#x27;s robot</figcaption></figure></div></article>
+  </div></section>
+  <div class="band"></div>
+
+  <section class="sec" id="diy"><div class="wrap">
+    <header class="slide-head"><h2>DIY Project</h2><hr><p class="kicker">Personal Project</p></header>
+    <article class="block" style="margin-top:0"><p class="lead">In my free time I repair and reprogram home appliances and automation systems (TVs, automatic gates) and I build prototypes combining <strong>electronics</strong>, <strong>3D printing</strong> and <strong>programming</strong>, like a 1:1 Iron Man mask with motorized opening and LED lights.</p><div class="row"><figure class=""><img src="img/s15-1.webp" alt="Iron Man mask 3D printed" loading="lazy"><figcaption>Iron Man mask 3D printed</figcaption></figure><figure class=""><img src="img/s15-2.webp" alt="Cable connections and green 3D-printed support for Arduino" loading="lazy"><figcaption>Cable connections and green 3D-printed support for Arduino</figcaption></figure></div></article>
+  </div></section>
+  <div class="band"></div>
+
+  <section class="sec" id="skills"><div class="wrap">
+    <header class="slide-head"><h2>Skills and Tools</h2><hr></header>
+    <div class="skills"><div><h3 class="head">Robotics</h3><p>ROS (Noetic), Gazebo, RViz, OpenCV</p></div><div><h3 class="head">Programming</h3><p>Python, C/C++, MATLAB</p></div><div><h3 class="head">Embedded</h3><p>STM32 (Nucleo-64 F401RE, STM32CubeIDE/CubeMX), ESP32, Arduino</p></div><div><h3 class="head">CAD and electronics</h3><p>SolidWorks, Geomagic Design X, KiCad</p></div><div><h3 class="head">Simulation</h3><p>Simulink, Ansys Fluent</p></div><div><h3 class="head">3D printing</h3><p>Bambu Studio, PreForm (Formlabs), Ultimaker Cura</p></div><div><h3 class="head">Development</h3><p>Git, Docker, PyCharm, LaTeX</p></div><div><h3 class="head">Operating systems</h3><p>macOS, Linux/Ubuntu, Windows</p></div><div><h3 class="head">Languages</h3><p>Italian (native), English (B1, daily use at UCL)</p></div></div>
+  </div></section>
+  <div class="band"></div>
+
+  <section class="sec" id="contact"><div class="wrap">
+    <header class="slide-head"><h2>Contact</h2><hr></header>
+    <p class="lead" style="margin-top:18px">I'm available to start working from February 2027. Feel free to contact me!</p>
+    <ul class="contacts"><li><img src="img/s02-2.webp" alt=""><a href="https://www.linkedin.com/in/leonardo-masi-b09b28219/" target="_blank" rel="noopener">Leonardo Masi</a></li><li><img src="img/s02-3.webp" alt=""><a href="mailto:leomasi1705@gmail.com">leomasi1705@gmail.com</a></li><li><span class="gh" aria-hidden="true">GitHub</span><a href="https://github.com/masileonardo" target="_blank" rel="noopener">github.com/masileonardo</a></li><li><img src="img/s04-7.webp" alt=""><a href="https://www.youtube.com/@leonardomasi1633" target="_blank" rel="noopener">Leonardo Masi</a></li></ul>
+  </div></section>
 </main>
+<div class="band"></div>
+<footer><div class="wrap">&copy; 2026 Leonardo Masi</div></footer>
+
+<dialog class="page" id="page" aria-labelledby="crumb">
+  <div class="page-bar"><div class="wrap"><span class="crumb" id="crumb">Project</span><button type="button" id="close">Close &times;</button></div></div>
+  <div class="page-body" tabindex="-1" autofocus><div class="wrap" id="page-body"></div></div>
+  <div class="band"></div>
+</dialog>
+
+<template data-area="Robotics" id="tpl-franka-manipulation"><header class="slide-head"><h2>Robotics Manipulation Challenge</h2><hr><p class="kicker">Master’s Exam</p></header><div class="cols"><div class="text"><h3 class="head">Overview</h3><p>Developed an automated robotic manipulation pipeline using a <strong>Franka Research 3 </strong>robotic arm equipped with an <strong>Intel RealSense </strong> <strong>D435i</strong> RGB-D camera. The system relies entirely on <strong>ROS Noetic</strong> to perform pick-and-place operations of objects with different shapes and colors, ArUco marker recognition and tracking, and object detection. Experimental tests were conducted both in simulation (<strong>Gazebo</strong> and <strong>Rviz</strong>) and on the real robotic setup</p><h3 class="head">Technical Implementation</h3><ul><li>Implemented a <strong>multi-node</strong> <strong>ROS Noetic</strong> system managed by a central node communicating via ROS topics and action clients.</li><li>Performed preliminary tests and trajectory planning in a simulated environment using <strong>Gazebo</strong> and <strong>Rviz</strong></li><li>Validated and executed the full manipulation and perception pipeline on the physical <strong>Franka Research 3 </strong>robot</li></ul></div><div class="gallery"><figure class=""><img src="img/s06-1.webp" alt="" loading="lazy"></figure><figure class=""><img src="img/s07-m1.webp" alt="Aruco Recognition" loading="lazy"><figcaption>Aruco Recognition</figcaption></figure><figure class=""><img src="img/s07-3.webp" alt="Object Recognition Yolov8" loading="lazy"><figcaption>Object Recognition Yolov8</figcaption></figure><figure class=""><img src="img/s07-1.webp" alt="Compute color objects centroid for pick and place" loading="lazy"><figcaption>Compute color objects centroid for pick and place</figcaption></figure></div></div><nav class="pn"><a href="#vehicle-dynamics">&larr; Modeling and Identifying Vehicle Dynamics</a><a href="#perseverance-rover">Rover Perseverance | Mission Simulator &rarr;</a></nav></template><template data-area="Robotics" id="tpl-perseverance-rover"><header class="slide-head"><h2>Rover Perseverance | Mission Simulator</h2><hr><p class="kicker">Personal Project</p></header><div class="cols"><div class="text"><h3 class="head">Overview</h3><p>I developed a mechatronic prototype to simulate the autonomous operations of the Perseverance rover on Mars. The project focused on autonomous navigation, environmental monitoring, and sample collection, integrating two different hardware architectures (<strong>LEGO Mindstorms and Arduino</strong>) to expand the system&#x27;s capabilities.</p><h3 class="head">Technical Implementation</h3><ul><li><strong>Line Follower</strong> algorithm for path tracking;</li><li>Color-based <strong>vision system </strong>to identify specific waypoints;</li><li>Designed and programmed a <strong>gripper mechanism;</strong></li><li>Interfaced <strong>I2C</strong> communication with <strong>Arduino board;</strong></li><li><strong>Custom 3D-</strong>printed hardware components;</li></ul><p class="links"><a href="https://youtu.be/JlRWyniSSKs" target="_blank" rel="noopener">Watch the video on YouTube</a></p><div class="logos"><img src="img/s04-m0.webp" alt="" loading="lazy"></div></div><div class="gallery"><figure class=""><img src="img/s03-1.webp" alt="Perseverance Architecture" loading="lazy"><figcaption>Perseverance Architecture</figcaption></figure><figure class=""><img src="img/s04-6.webp" alt="Line follower path with color waypoints" loading="lazy"><figcaption>Line follower path with color waypoints</figcaption></figure><figure class=""><img src="img/s04-5.webp" alt="Robot explosion" loading="lazy"><figcaption>Robot explosion</figcaption></figure></div></div><nav class="pn"><a href="#franka-manipulation">&larr; Robotics Manipulation Challenge</a><a href="#lidar-analysis">Performance Analysis of Lidar L1 in Indoor and Outdoor Environments &rarr;</a></nav></template><template data-area="Robotics" id="tpl-lidar-analysis"><header class="slide-head"><h2>Performance Analysis of Lidar L1 in Indoor and Outdoor Environments</h2><hr><p class="kicker">Master’s Project Work</p></header><div class="cols"><div class="text"><h3 class="head">Overview</h3><p>Conducted a comprehensive performance evaluation of the <strong>Unitree </strong> <strong>Lidar L1 </strong>sensor to determine optimal operational parameters for autonomous navigation. The study focused on assessing the sensor&#x27;s precision and reliability across diverse environments, analyzing how installation height, orientation, and atmospheric conditions impact data quality. This benchmark analysis provides critical insights for optimizing <strong>SLAM (Simultaneous Localization and </strong> <strong>Mapping)</strong> algorithms in varying operational scenarios.</p><h3 class="head">Technical Implementation</h3><ul><li>Utilised<strong> ROS (Robot Operating System)</strong> to interface with the Lidar L1 and capture high-frequency spatial data;</li><li>Exported raw data into <strong>CSV</strong> formats for statistical analysis and performance mapping;</li><li>Use <strong>MATLAB</strong> for advanced processing of point clouds and to validate the consistency of SLAM-generated maps;</li></ul><div class="logos"><img src="img/s09-2.webp" alt="" loading="lazy"></div></div><div class="gallery"><figure class=""><img src="img/s09-1.webp" alt="L1 Unitree Lidar" loading="lazy"><figcaption>L1 Unitree Lidar</figcaption></figure><figure class=""><img src="img/s09-3.webp" alt="Example of acquisition" loading="lazy"><figcaption>Example of acquisition</figcaption></figure></div></div><nav class="pn"><a href="#perseverance-rover">&larr; Rover Perseverance | Mission Simulator</a><a href="#tangent-bug">Implementation of the Tangent Bug Algorithm &rarr;</a></nav></template><template data-area="Robotics" id="tpl-tangent-bug"><header class="slide-head"><h2>Implementation of the Tangent Bug Algorithm</h2><hr><p class="kicker">Master’s Project Work</p></header><div class="cols"><div class="text"><h3 class="head">Overview</h3><p>Simulation of the algorithm in virtual environment using PyCharm for testing purposes by varying the main parameters.</p><h3 class="head">Technical Implementation</h3><ul><li>Implemented a <strong>two-state machine</strong>: Move-to-goal and Boundary-following behavior;</li><li>Created a <strong>graphical interface</strong> and GIFs with different parameters;</li></ul><div class="logos"><img src="img/s12-3.webp" alt="" loading="lazy"></div></div><div class="gallery"><figure class=""><img src="img/s12-m0.webp" alt="" loading="lazy"></figure></div></div><nav class="pn"><a href="#lidar-analysis">&larr; Performance Analysis of Lidar L1 in Indoor and Outdoor Environments</a><a href="#grasp-force-sensor">Development of a sensor system for measuring force distribution when grasping objects &rarr;</a></nav></template><template data-area="Biomedical &amp; Electronics" id="tpl-grasp-force-sensor"><header class="slide-head"><h2>Development of a sensor system for measuring force distribution when grasping objects</h2><hr><p class="kicker">Bachelor’s Thesis Project</p></header><div class="cols"><div class="text"><h3 class="head">Overview</h3><p>Developed a sensorized object to measure and map force distribution during grasping tasks. The project was part of a research initiative to evaluate the performance of a hand exoskeleton developed by the university laboratory. By identifying high and low-pressure points during a &quot;grasp,&quot; the system provided essential data to optimize the exoskeleton’s mechanical design and control algorithms for more natural and effective human-robot interaction.</p><h3 class="head">Technical Implementation</h3><ul><li>Designed the test object using <strong>SolidWorks</strong> and fabricated using <strong>3D printing</strong> technology;</li><li>Developed the data acquisition system using <strong>Arduino;</strong></li><li>Conducted experimental trials wearing the <strong>lab’s hand </strong> <strong>exoskeleton;</strong></li><li>Performed precision <strong>soldering</strong> and wiring of the sensor matrix;</li></ul><h3 class="head">Result</h3><p>Identified the major areas of pressure concentration wearing exoskeleton after testing sensor on male and female subjects.</p><p>Explored alternative strategies and materials to further enhance data acquisition accuracy.</p><div class="logos"><img src="img/s08-m3.webp" alt="" loading="lazy"></div></div><div class="gallery"><figure class=""><img src="img/s05-1.webp" alt="Sensor object developed" loading="lazy"><figcaption>Sensor object developed</figcaption></figure><figure class=""><img src="img/s05-2.webp" alt="Hand exoskeleton" loading="lazy"><figcaption>Hand exoskeleton</figcaption></figure><figure class=""><img src="img/s08-2.webp" alt="" loading="lazy"></figure><figure class=""><img src="img/s08-3.webp" alt="Studying and testing of sensor with weight" loading="lazy"><figcaption>Studying and testing of sensor with weight</figcaption></figure><figure class=""><img src="img/s08-1.webp" alt="Experimental grasping trials with wearable hand exoskeleton" loading="lazy"><figcaption>Experimental grasping trials with wearable hand exoskeleton</figcaption></figure></div></div><nav class="pn"><a href="#tangent-bug">&larr; Implementation of the Tangent Bug Algorithm</a><a href="#ppg-circuit">Circuit for estimating cardiac pulsation &rarr;</a></nav></template><template data-area="Biomedical &amp; Electronics" id="tpl-ppg-circuit"><header class="slide-head"><h2>Circuit for estimating cardiac pulsation</h2><hr><p class="kicker">Master’s Project Work</p></header><div class="cols"><div class="text"><h3 class="head">Overview</h3><p>Designed and prototyped an analog electronic system for real-time heart rate monitoring using <strong>non-invasive photoplethysmography</strong> (<strong>PPG</strong>). The project focused on the complete development of a signal conditioning chain, from raw optical data acquisition to a filtered analog output, demonstrating core skills in medical instrumentation and precision analog design.</p><h3 class="head">Technical Implementation</h3><ul><li>Utilised a <strong>TCRT1000 </strong>reflective optical sensor to detect micro-vascular blood volume changes through a photodiode;</li><li>Designed a <strong>dual-stage conditioning circuit</strong> based on the <strong>LM358</strong> operational amplifier;</li><li>Performed full <strong>PCB assembly</strong> and hardware validation, utilising soldering and professional laboratory instrumentation, including <strong>oscilloscopes</strong>, <strong>signal generators</strong>, and <strong>multimeters</strong>, to characterize system response and signal integrity;</li></ul></div><div class="gallery"><figure class=""><img src="img/s10-1.webp" alt="Electronic Schematic" loading="lazy"><figcaption>Electronic Schematic</figcaption></figure><figure class=""><img src="img/s10-2.webp" alt="Assembled PCB" loading="lazy"><figcaption>Assembled PCB</figcaption></figure></div></div><nav class="pn"><a href="#grasp-force-sensor">&larr; Development of a sensor system for measuring force distribution when grasping objects</a><a href="#vehicle-dynamics">Modeling and Identifying Vehicle Dynamics &rarr;</a></nav></template><template data-area="Modelling &amp; Identification" id="tpl-vehicle-dynamics"><header class="slide-head"><h2>Modeling and Identifying Vehicle Dynamics</h2><hr><p class="kicker">Master’s Project Work</p></header><div class="cols"><div class="text"><h3 class="head">Overview</h3><p>Validated mathematical models for vehicle dynamics to accurately predict and identify system behavior. The project focused on a <strong>simulation-driven</strong> approach to characterise the response of complex mechanical systems under varying operational conditions, ensuring high reliability in dynamic state estimation.</p><h3 class="head">Technical Implementation</h3><ul><li>Performed <strong>Non-linear Grey-box Identification </strong>using the <strong>IDNLGREY</strong> object in MATLAB to estimate physical parameters from experimental data;</li><li>Repeat the process with real data from Volvo V70 car;</li></ul><div class="logos"><img src="img/s11-3.webp" alt="" loading="lazy"></div></div><div class="gallery"><figure class=""><img src="img/s11-1.webp" alt="" loading="lazy"></figure><figure class=""><img src="img/s11-2.webp" alt="" loading="lazy"></figure></div></div><nav class="pn"><a href="#ppg-circuit">&larr; Circuit for estimating cardiac pulsation</a><a href="#franka-manipulation">Robotics Manipulation Challenge &rarr;</a></nav></template>
+<script>
+(function () {
+  // filters
+  const buttons = document.querySelectorAll(".filters button");
+  buttons.forEach((b) => b.addEventListener("click", () => {
+    buttons.forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    const f = b.dataset.f;
+    document.querySelectorAll(".area").forEach((a) => { a.hidden = !(f === "all" || a.dataset.area === f); });
+  }));
+  // project pages
+  const dlg = document.getElementById("page");
+  const body = document.getElementById("page-body");
+  const crumb = document.getElementById("crumb");
+  let lastScroll = 0;
+  function open(id) {
+    const tpl = document.getElementById("tpl-" + id);
+    if (!tpl) return false;
+    body.innerHTML = "";
+    body.appendChild(tpl.content.cloneNode(true));
+    crumb.textContent = tpl.dataset.area || "Project";
+    if (!dlg.open) { lastScroll = window.scrollY; try { dlg.showModal(); } catch (e) { dlg.setAttribute("open", ""); } }
+    dlg.scrollTop = 0;
+    document.title = (tpl.content.querySelector("h2") || {}).textContent + " | Leonardo Masi";
+    return true;
+  }
+  function close() {
+    if (dlg.open) dlg.close();
+  }
+  dlg.addEventListener("close", () => {
+    document.title = "Leonardo Masi Portfolio";
+    if (document.getElementById("tpl-" + location.hash.slice(1))) {
+      try { history.replaceState(null, "", location.pathname + location.search + "#projects"); } catch (e) {}
+    }
+    window.scrollTo(0, lastScroll);
+  });
+  document.getElementById("close").addEventListener("click", close);
+  function route() {
+    const id = location.hash.slice(1);
+    if (!open(id) && dlg.open) close();
+  }
+  window.addEventListener("hashchange", route);
+  route();
+})();
+</script>
 </body>
 </html>

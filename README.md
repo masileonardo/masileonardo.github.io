@@ -2,4 +2,4 @@
 
 My portfolio: https://masileonardo.github.io
 
-Built from my Keynote portfolio: same fonts, colours and layout. Pictures are in `img/`.
+Same fonts, colours and texts of my Keynote portfolio, organized as a website. Pictures are in `img/`.
