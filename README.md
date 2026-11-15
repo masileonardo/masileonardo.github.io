@@ -2,4 +2,4 @@
 
 My portfolio: https://masileonardo.github.io
 
-The slides are in `slides/` (exported from my Keynote portfolio).
+Built from my Keynote portfolio: same fonts, colours and layout. Pictures are in `img/`.
