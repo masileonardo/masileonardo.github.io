@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leonardo Masi Portfolio</title>
+<meta name="description" content="Leonardo Masi, MSc student in Robotics, Automation and Electrical Engineering. Robotics, embedded and biomedical projects.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+:root {
+  /* Layout idea: an engineering datasheet. Left-aligned, ruled sections, monospace metadata, one industrial-orange accent. */
+  --bg: #f2f4f6;
+  --surface: #ffffff;
+  --ink: #121a24;
+  --muted: #586473;
+  --line: #d6dce4;
+  --accent: #d9530c;
+  --accent-soft: #fbe9df;
+  --font-display: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "IBM Plex Sans", -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --radius: 4px;
+  --wrap: 1120px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1318; --surface: #161d25; --ink: #e6ebf1; --muted: #98a4b3;
+    --line: #2a3440; --accent: #ff7a33; --accent-soft: #3a2316;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1318; --surface: #161d25; --ink: #e6ebf1; --muted: #98a4b3;
+  --line: #2a3440; --accent: #ff7a33; --accent-soft: #3a2316;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
+@media (max-width: 480px) { .wrap { padding: 0 16px; } }
+
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; margin: 0; text-wrap: balance; }
+.nw { white-space: nowrap; }
+.mono { font-family: var(--font-mono); font-size: 13px; letter-spacing: .02em; }
+
+/* ---------- top bar ---------- */
+.topbar {
+  position: sticky; top: 0; z-index: 10;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
+}
+.topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 56px; }
+.brand { font-family: var(--font-display); font-weight: 800; font-size: 18px; text-decoration: none; }
+.brand span { color: var(--accent); }
+.topnav { display: flex; gap: 20px; flex-wrap: wrap; }
+.topnav a { font-family: var(--font-mono); font-size: 13px; text-decoration: none; color: var(--muted); }
+.topnav a:hover { color: var(--ink); }
+@media (max-width: 640px) { .topnav a.optional { display: none; } }
+
+/* ---------- hero ---------- */
+.hero { padding: 56px 0 40px; border-bottom: 1px solid var(--line); }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: 40px; align-items: start; }
+@media (max-width: 760px) { .hero-grid { grid-template-columns: 1fr; } .portrait { order: -1; width: 140px; } }
+.status {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 13px;
+  background: var(--accent-soft); color: var(--ink);
+  padding: 4px 10px; border-radius: 999px; margin-bottom: 20px;
+}
+.status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+.hero h1 { font-size: clamp(40px, 6vw, 64px); font-weight: 800; letter-spacing: -.01em; }
+.role { font-size: 20px; color: var(--muted); margin: 10px 0 20px; max-width: 40ch; }
+.bio { max-width: 62ch; margin: 0 0 24px; }
+.links { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px;
+  border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface);
+  font-family: var(--font-mono); font-size: 13px; text-decoration: none; cursor: pointer; color: var(--ink);
+}
+.btn:hover { border-color: var(--ink); }
+.btn.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.btn svg { width: 16px; height: 16px; flex: none; }
+.portrait { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: var(--surface); }
+.portrait img { aspect-ratio: 4 / 5; object-fit: cover; width: 100%; }
+
+.spec { margin: 32px 0 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+.spec div { padding: 14px 16px 0 0; }
+.spec dt { font-family: var(--font-mono); font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.spec dd { margin: 4px 0 0; font-weight: 500; }
+@media (max-width: 760px) { .spec { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ---------- sections ---------- */
+section.block { padding: 56px 0 8px; }
+.section-head { display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; gap: 16px; align-items: baseline; border-top: 2px solid var(--ink); padding-top: 14px; margin-bottom: 8px; }
+.section-head .num { font-family: var(--font-mono); color: var(--accent); font-size: 14px; }
+.section-head h2 { font-size: 28px; }
+.section-head .count { font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
+.section-blurb { margin: 0 0 24px 72px; color: var(--muted); max-width: 62ch; }
+@media (max-width: 640px) {
+  .section-head { grid-template-columns: 40px minmax(0, 1fr); }
+  .section-head .count { grid-column: 2; }
+  .section-blurb { margin-left: 56px; }
+}
+
+/* index of categories */
+.index { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); margin-top: 24px; }
+.index a { display: block; padding: 16px 18px; text-decoration: none; border-right: 1px solid var(--line); }
+.index a:last-child { border-right: 0; }
+.index a:hover { background: var(--accent-soft); }
+.index .n { font-family: var(--font-mono); font-size: 12px; color: var(--accent); }
+.index .t { display: block; font-weight: 600; margin-top: 2px; }
+.index .c { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+@media (max-width: 720px) { .index a { border-right: 0; border-bottom: 1px solid var(--line); } .index a:last-child { border-bottom: 0; } }
+
+/* current work panel */
+.current { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 32px; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 28px; }
+@media (max-width: 760px) { .current { grid-template-columns: 1fr; padding: 20px; } }
+.current h3 { font-size: 26px; margin: 6px 0 12px; }
+.current p { margin: 0 0 12px; max-width: 62ch; }
+.current ul { margin: 0; padding-left: 18px; }
+.current li { margin-bottom: 4px; }
+.current .note { font-size: 14px; color: var(--muted); font-style: italic; }
+.pill { display: inline-block; font-family: var(--font-mono); font-size: 12px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--accent); color: var(--accent); margin-left: 8px; vertical-align: middle; }
+
+/* project cards */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+@media (max-width: 400px) { .grid { grid-template-columns: 1fr; } }
+.card { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.card-media { all: unset; cursor: pointer; display: block; aspect-ratio: 16 / 10; background: #fff; border-bottom: 1px solid var(--line); }
+.card-media:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.card-media img { width: 100%; height: 100%; object-fit: cover; }
+.card-media img.contain { object-fit: contain; padding: 10px; }
+.card-body { display: flex; flex-direction: column; gap: 10px; padding: 18px; flex: 1; }
+.meta { font-family: var(--font-mono); font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin: 0; }
+.card h3 { font-size: 20px; }
+.card .summary { margin: 0; color: var(--ink); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0; padding: 0; }
+.tags li { font-family: var(--font-mono); font-size: 12px; padding: 2px 8px; border: 1px solid var(--line); border-radius: var(--radius); color: var(--muted); }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 6px; }
+.actions .btn { height: 34px; padding: 0 12px; font-size: 12px; }
+
+/* rows for competitions & maker */
+.rows { display: grid; gap: 16px; }
+.row { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 24px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.row figure { margin: 0; height: 100%; background: #fff; }
+.row img { width: 100%; height: 100%; min-height: 150px; object-fit: cover; }
+.row img.contain { object-fit: contain; padding: 10px; }
+.row .txt { padding: 18px 20px 18px 0; }
+.row h3 { font-size: 20px; margin: 4px 0 8px; }
+.row p { margin: 0; max-width: 62ch; }
+@media (max-width: 640px) { .row { grid-template-columns: 1fr; } .row .txt { padding: 0 18px 18px; } .row img { aspect-ratio: 16 / 9; min-height: 0; } }
+
+/* contact */
+.contact { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+.contact div { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; }
+.contact dt { font-family: var(--font-mono); font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.contact dd { margin: 6px 0 0; overflow-wrap: anywhere; }
+footer { padding: 48px 0 40px; color: var(--muted); font-size: 14px; }
+
+/* detail dialog */
+dialog { width: min(880px, calc(100% - 32px)); max-height: calc(100% - 48px); padding: 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--ink); }
+dialog::backdrop { background: rgba(10, 14, 20, .6); }
+.dlg-head { position: sticky; top: 0; display: flex; justify-content: space-between; gap: 16px; align-items: start; padding: 20px 24px 14px; background: var(--surface); border-bottom: 1px solid var(--line); }
+.dlg-head h2 { font-size: 26px; margin-top: 4px; }
+.dlg-body { padding: 20px 24px 28px; display: grid; gap: 20px; }
+.dlg-body p { margin: 0; max-width: 68ch; }
+.dlg-body h3 { font-family: var(--font-mono); font-size: 12px; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+.dlg-body ul.list { margin: 0; padding-left: 18px; }
+.dlg-body ul.list li { margin-bottom: 4px; }
+.result { background: var(--accent-soft); border-radius: var(--radius); padding: 14px 16px; }
+.gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.gallery figure { margin: 0; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: #fff; }
+.gallery img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.gallery img.contain { object-fit: contain; padding: 8px; }
+.gallery figcaption { font-size: 13px; color: var(--muted); padding: 8px 10px; background: var(--surface); border-top: 1px solid var(--line); }
+.close { all: unset; cursor: pointer; font-family: var(--font-mono); font-size: 13px; padding: 6px 10px; border: 1px solid var(--line); border-radius: var(--radius); }
+.close:hover { border-color: var(--ink); }
+.close:focus-visible { outline: 2px solid var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#top">Leonardo Masi<span>.</span></a>
+    <nav class="topnav" aria-label="Sections">
+      <a href="#current">Thesis</a>
+      <a href="#projects">Projects</a>
+      <a class="optional" href="#competitions">Competitions</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <span class="status">Available from February 2027</span>
+          <h1>Leonardo Masi</h1>
+          <p class="role">Robotics and Automation Engineering, Master's student</p>
+          <p class="bio">Hi! My name is Leonardo Masi. I'm a Master's student in Robotics, Automation and Electrical Engineering at the University of Florence, with a background in Biomedical Engineering. Right now I'm doing my master thesis at UCL Hawkes Institute in London. Here you can find the most significant projects I have done.</p>
+          <div class="links" id="hero-links"></div>
+        </div>
+        <figure class="portrait" style="margin:0"><img src="assets/img/profile.jpg" alt="Portrait of Leonardo Masi" width="440" height="550"></figure>
+      </div>
+      <dl class="spec">
+        <div><dt>Graduation</dt><dd>April 2027</dd></div>
+        <div><dt>Now</dt><dd>Thesis at UCL, London</dd></div>
+        <div><dt>Main tools</dt><dd>ROS, STM32, SolidWorks</dd></div>
+        <div><dt>Based in</dt><dd>Tuscany, Italy</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="block" id="current">
+    <div class="wrap">
+      <div class="section-head"><span class="num">00</span><h2>What I'm working on</h2><span class="count">Master thesis</span></div>
+      <div id="current-panel"></div>
+    </div>
+  </section>
+
+  <section class="block" id="projects">
+    <div class="wrap">
+      <div class="section-head"><span class="num"></span><h2>Projects</h2><span class="count" id="project-total"></span></div>
+      <p class="section-blurb">Click on a project to see more details, photos and code.</p>
+      <nav class="index" id="index" aria-label="Project areas"></nav>
+    </div>
+    <div id="categories"></div>
+  </section>
+
+  <section class="block" id="competitions">
+    <div class="wrap">
+      <div class="section-head"><span class="num" id="comp-num"></span><h2>Competitions</h2><span class="count" id="comp-count"></span></div>
+            <div class="rows" id="comp-rows"></div>
+    </div>
+  </section>
+
+  <section class="block" id="maker">
+    <div class="wrap">
+      <div class="section-head"><span class="num" id="maker-num"></span><h2>DIY</h2><span class="count">Free time</span></div>
+      <div class="rows" id="maker-rows"></div>
+    </div>
+  </section>
+
+  <section class="block" id="contact">
+    <div class="wrap">
+      <div class="section-head"><span class="num" id="contact-num"></span><h2>Contact</h2><span class="count"></span></div>
+      <p class="section-blurb">I'm available to start working from February 2027. Feel free to contact me!</p>
+      <dl class="contact" id="contact-list"></dl>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">© <span id="year"></span> Leonardo Masi</div>
+</footer>
+
+<dialog id="detail" aria-labelledby="dlg-title">
+  <div class="dlg-head">
+    <div><p class="meta" id="dlg-meta"></p><h2 id="dlg-title"></h2></div>
+    <button class="close" id="dlg-close" type="button">Close</button>
+  </div>
+  <div class="dlg-body" id="dlg-body"></div>
+</dialog>
+
+<noscript><p class="wrap">This page needs JavaScript to list the projects.</p></noscript>
+
+<script src="assets/projects.js"></script>
+<script>
+(function () {
+  const IMG = "assets/img/";
+  const icons = {
+    github: '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>',
+    linkedin: '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M0 1.15C0 .52.52 0 1.16 0h13.68C15.48 0 16 .52 16 1.15v13.7c0 .63-.52 1.15-1.16 1.15H1.16C.52 16 0 15.48 0 14.85V1.15zm4.94 12.24V6.17H2.54v7.22h2.4zm-1.2-8.2c.84 0 1.36-.55 1.36-1.25-.02-.71-.52-1.25-1.34-1.25-.82 0-1.36.54-1.36 1.25 0 .7.52 1.25 1.33 1.25h.01zm4.91 8.2V9.36c0-.22.02-.43.08-.59.17-.43.57-.88 1.23-.88.87 0 1.22.66 1.22 1.63v3.87h2.4V9.25c0-2.22-1.18-3.25-2.76-3.25-1.27 0-1.84.7-2.16 1.2v.02h-.01l.01-.02V6.17h-2.4c.03.68 0 7.22 0 7.22h2.4z"/></svg>',
+    mail: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="1.5" y="3" width="13" height="10" rx="1"/><path d="M2 4l6 5 6-5"/></svg>',
+    play: '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg>',
+    code: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5.5 4L2 8l3.5 4M10.5 4L14 8l-3.5 4"/></svg>',
+  };
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const pad = (n) => String(n).padStart(2, "0");
+  const repoUrl = (r) => (r ? "https://github.com/" + GITHUB_USER + "/" + r : "");
+  const metaLine = (p) => [p.context, p.year].filter(Boolean).map((x) => '<span class="nw">' + esc(x) + "</span>").join(" | ");
+  const img = (i, alt) => '<img src="' + IMG + esc(i.src) + '" alt="' + esc(alt || i.caption || "") + '" loading="lazy"' + (i.fit === "contain" ? ' class="contain"' : "") + ">";
+  const tags = (t) => '<ul class="tags">' + t.map((x) => "<li>" + esc(x) + "</li>").join("") + "</ul>";
+  const linkBtn = (href, label, icon) => '<a class="btn" href="' + esc(href) + '" target="_blank" rel="noopener">' + icons[icon] + esc(label) + "</a>";
+
+  // hero links
+  document.getElementById("hero-links").innerHTML =
+    '<a class="btn primary" href="mailto:' + esc(SITE.email) + '">' + icons.mail + esc(SITE.email) + "</a>" +
+    linkBtn(SITE.linkedin, "LinkedIn", "linkedin") +
+    linkBtn("https://github.com/" + GITHUB_USER, "GitHub", "github") +
+    (SITE.youtube ? linkBtn(SITE.youtube, "YouTube", "play") : "");
+
+  // current work
+  const c = CURRENT;
+  document.getElementById("current-panel").innerHTML =
+    '<article class="current"><div><p class="meta">' + metaLine(c) + '</p><h3>' + esc(c.title) + '<span class="pill">' + esc(c.status) + "</span></h3><p>" + esc(c.summary) + '</p><p class="note">' + esc(c.note) + "</p></div>" +
+    "<div><ul>" + c.bullets.map((b) => "<li>" + esc(b) + "</li>").join("") + "</ul>" + '<div style="margin-top:16px">' + tags(c.tags) + "</div></div></article>";
+
+  // categories + index
+  const byCat = CATEGORIES.map((cat) => ({ cat, items: PROJECTS.filter((p) => p.category === cat.id) })).filter((g) => g.items.length);
+  document.getElementById("project-total").textContent = PROJECTS.length + " projects";
+  document.getElementById("index").innerHTML = byCat.map((g, i) =>
+    '<a href="#cat-' + esc(g.cat.id) + '"><span class="n">' + pad(i + 1) + '</span><span class="t">' + esc(g.cat.title) + '</span><span class="c">' + g.items.length + (g.items.length === 1 ? " project" : " projects") + "</span></a>"
+  ).join("");
+  document.getElementById("categories").innerHTML = byCat.map((g, i) =>
+    '<section class="block" id="cat-' + esc(g.cat.id) + '" style="padding-top:40px"><div class="wrap">' +
+    '<div class="section-head" style="border-top-width:1px"><span class="num">' + pad(i + 1) + "</span><h2>" + esc(g.cat.title) + '</h2><span class="count">' + g.items.length + (g.items.length === 1 ? " project" : " projects") + "</span></div>" +
+    '<div class="grid" style="margin-top:20px">' +
+    g.items.map((p) => {
+      const first = p.images[0];
+      return '<article class="card">' +
+        '<button class="card-media" type="button" data-open="' + esc(p.id) + '" aria-label="Open details: ' + esc(p.title) + '">' + img(first, p.title) + "</button>" +
+        '<div class="card-body"><p class="meta">' + metaLine(p) + "</p><h3>" + esc(p.title) + '</h3><p class="summary">' + esc(p.summary) + "</p>" + tags(p.tags) +
+        '<div class="actions"><button class="btn primary" type="button" data-open="' + esc(p.id) + '">Details</button>' +
+        (p.repo ? linkBtn(repoUrl(p.repo), "Code", "code") : "") +
+        (p.video ? linkBtn(p.video, "Video", "play") : "") +
+        "</div></div></article>";
+    }).join("") + "</div></div></section>"
+  ).join("");
+
+  // numbering of later sections follows the categories
+  let n = byCat.length;
+  document.getElementById("comp-num").textContent = pad(++n);
+  document.getElementById("maker-num").textContent = pad(++n);
+  document.getElementById("contact-num").textContent = pad(++n);
+
+  const row = (r) =>
+    '<article class="row" id="' + esc(r.id) + '"><figure>' + img(r.image, r.image.caption) + '</figure><div class="txt"><p class="meta">' + metaLine(r) + "</p><h3>" + esc(r.title) + "</h3><p>" + esc(r.text) + "</p></div></article>";
+  document.getElementById("comp-count").textContent = COMPETITIONS.length + " events";
+  document.getElementById("comp-rows").innerHTML = COMPETITIONS.map(row).join("");
+  document.getElementById("maker-rows").innerHTML = MAKER.map(row).join("");
+
+  document.getElementById("contact-list").innerHTML =
+    '<div><dt>Email</dt><dd><a href="mailto:' + esc(SITE.email) + '">' + esc(SITE.email) + "</a></dd></div>" +
+    '<div><dt>LinkedIn</dt><dd><a href="' + esc(SITE.linkedin) + '" target="_blank" rel="noopener">linkedin.com/in/leonardo-masi</a></dd></div>' +
+    (SITE.youtube ? '<div><dt>YouTube</dt><dd><a href="' + esc(SITE.youtube) + '" target="_blank" rel="noopener">youtube.com/@leonardomasi1633</a></dd></div>' : "") +
+    '<div><dt>GitHub</dt><dd><a href="https://github.com/' + esc(GITHUB_USER) + '" target="_blank" rel="noopener">github.com/' + esc(GITHUB_USER) + "</a></dd></div>";
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // detail dialog
+  const dlg = document.getElementById("detail");
+  const find = (id) => PROJECTS.find((p) => p.id === id);
+  function open(id, fromHash) {
+    const p = find(id);
+    if (!p) return;
+    document.getElementById("dlg-meta").innerHTML = metaLine(p);
+    document.getElementById("dlg-title").textContent = p.title;
+    let html = "<div><h3>Overview</h3><p>" + esc(p.overview || p.summary) + "</p></div>";
+    html += '<div><h3>Technical implementation</h3><ul class="list">' + p.bullets.map((b) => "<li>" + esc(b) + "</li>").join("") + "</ul></div>";
+    if (p.result) html += '<div class="result"><h3>Result</h3><p>' + esc(p.result) + "</p></div>";
+    html += "<div><h3>Tools</h3>" + tags(p.tags) + "</div>";
+    html += '<div class="gallery">' + p.images.map((i) => "<figure>" + img(i) + "<figcaption>" + esc(i.caption) + "</figcaption></figure>").join("") + "</div>";
+    const links = (p.repo ? linkBtn(repoUrl(p.repo), "Code on GitHub", "github") : "") + (p.video ? linkBtn(p.video, "Watch the video", "play") : "");
+    if (links) html += '<div class="links">' + links + "</div>";
+    document.getElementById("dlg-body").innerHTML = html;
+    if (!dlg.open) { try { dlg.showModal(); } catch (e) { dlg.setAttribute("open", ""); } }
+    dlg.scrollTop = 0;
+    if (!fromHash) { try { history.replaceState(null, "", "#" + id); } catch (e) {} }
+  }
+  function close() {
+    if (dlg.open) dlg.close();
+  }
+  dlg.addEventListener("close", () => {
+    if (find(location.hash.slice(1))) { try { history.replaceState(null, "", location.pathname + location.search); } catch (e) {} }
+  });
+  dlg.addEventListener("click", (e) => { if (e.target === dlg) close(); });
+  document.getElementById("dlg-close").addEventListener("click", close);
+  document.addEventListener("click", (e) => {
+    const t = e.target.closest("[data-open]");
+    if (t) open(t.getAttribute("data-open"));
+  });
+  function fromHash() { const id = location.hash.slice(1); if (find(id)) open(id, true); }
+  window.addEventListener("hashchange", fromHash);
+  fromHash();
+})();
+</script>
+</body>
+</html>
