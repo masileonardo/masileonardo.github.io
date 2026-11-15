@@ -2,4 +2,4 @@
 
 My portfolio: https://masileonardo.github.io
 
-To change the projects edit `assets/projects.js`, the photos are in `assets/img/`.
+The slides are in `slides/` (exported from my Keynote portfolio).
